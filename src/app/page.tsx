@@ -34,6 +34,26 @@ export default function Home() {
             Read our docs
           </a>
         </div> */}
+        <div className="w-full md:w-2/4 p-3"></div>
+        <button className="px-4 py-2 rounded-3xl border hover:bg-slate-700">
+          <svg
+            className="inline-block mr-3"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M8 12h8" />
+            <path d="M12 8v8" />
+          </svg>
+          Create a list
+        </button>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <code className="bg-slate-800 text-white px-4 py-1">
