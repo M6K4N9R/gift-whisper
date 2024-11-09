@@ -35,7 +35,7 @@ export default function Home() {
           </a>
         </div> */}
         <div className="w-full md:w-2/4 p-3"></div>
-        <button className="px-4 py-2 rounded-3xl border hover:bg-slate-700">
+        <button className="px-4 py-2 rounded-3xl border hover:border-orange-600 hover:bg-slate-900 transition-all ease-in-out">
           <svg
             className="inline-block mr-3"
             xmlns="http://www.w3.org/2000/svg"
