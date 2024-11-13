@@ -1,21 +1,20 @@
-
-import React, { useState, useEffect } from 'react';
-import DesktopMenu from './DesktopMenu';
-import MobileMenu from './MobileMenu';
+import React, { useState, useEffect } from "react";
+import DesktopMenu from "./DesktopMenu";
+import MobileMenu from "./MobileMenu";
 
 const Header: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 640); 
+      setIsMobile(window.innerWidth < 640);
     };
 
-    handleResize(); 
-    window.addEventListener('resize', handleResize);
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -24,16 +23,25 @@ const Header: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            {/* Company logo logo here */}
-          </div>
+          <div className="flex-shrink-0">{/* Company logo logo here */}</div>
 
-          
-          {isMobile ? <MobileMenu /> : <DesktopMenu navItems={[
-          { label: "About", href: "/about" },
-          { label: "Settings", href: "/settings" },
-          { label: "Profile", href: "/my-profile" },
-        ]} />}
+          {isMobile ? (
+            <MobileMenu
+              navItems={[
+                { label: "About", href: "/about" },
+                { label: "Settings", href: "/settings" },
+                { label: "Profile", href: "/my-profile" },
+              ]}
+            />
+          ) : (
+            <DesktopMenu
+              navItems={[
+                { label: "About", href: "/about" },
+                { label: "Settings", href: "/settings" },
+                { label: "Profile", href: "/my-profile" },
+              ]}
+            />
+          )}
         </div>
       </div>
     </header>
@@ -41,9 +49,6 @@ const Header: React.FC = () => {
 };
 
 export default Header;
-
-
-
 
 // ================================================================ OLD WAY
 // import Link from "next/link";
