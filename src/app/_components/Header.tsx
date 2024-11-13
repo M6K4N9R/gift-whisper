@@ -31,7 +31,13 @@ const Header: React.FC<HeaderProps> = ({ logo, navItems, userInfo }) => {
                 logo
               ) : (
                 <Link href="/">
-                  <span className="text-xl font-bold text-secondary-900">Gift Whisper</span>
+                  {/* <span className="text-xl font-bold text-secondary-900">Gift Whisper</span> */}
+                  <Image
+                    src="/logo/logo-white-bg-880by160.png"
+                    alt="Gift Whisper Logo"
+                    width={200}
+                    height={50}
+                  />
                 </Link>
               )}
             </div>
