@@ -24,35 +24,33 @@ const Header: React.FC<HeaderProps> = ({ logo, navItems, userInfo }) => {
   return (
     <header className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
-            <div className="flex-shrink-0 flex items-center">
-              {logo ? (
-                logo
-              ) : (
-                <Link href="/">
-                  {/* <span className="text-xl font-bold text-secondary-900">Gift Whisper</span> */}
-                  <Image
-                    src="/logo/logo-white-bg-880by160.png"
-                    alt="Gift Whisper Logo"
-                    width={200}
-                    height={50}
-                  />
-                </Link>
-              )}
-            </div>
-            <nav className="hidden md:ml-6 md:flex md:space-x-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+        <div className="flex justify-between items-center h-16">
+          <div className="flex-shrink-0 flex items-center">
+            {logo ? (
+              logo
+            ) : (
+              <Link href="/">
+                {/* <span className="text-xl font-bold text-secondary-900">Gift Whisper</span> */}
+                <Image
+                  src="/logo/logo-white-bg-880by160.png"
+                  alt="Gift Whisper Logo"
+                  width={200}
+                  height={50}
+                />
+              </Link>
+            )}
           </div>
+          <nav className="hidden md:flex flex-1 justify-end mx-6 space-x-10">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-dark-accent-500 hover:text-dark-accent-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
           <div className="hidden md:ml-6 md:flex md:items-center">
             {userInfo ? (
               <div className="ml-3 relative">
@@ -79,7 +77,7 @@ const Header: React.FC<HeaderProps> = ({ logo, navItems, userInfo }) => {
             ) : (
               <Link
                 href="/login"
-                className="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
+                className="text-dark-accent-500 hover:text-primary-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
               >
                 Log in
               </Link>
