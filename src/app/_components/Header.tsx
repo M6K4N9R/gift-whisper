@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ logo, navItems, userInfo }) => {
                 logo
               ) : (
                 <Link href="/">
-                  <span className="text-xl font-bold">Gift Whisper</span>
+                  <span className="text-xl font-bold text-secondary-900">Gift Whisper</span>
                 </Link>
               )}
             </div>
