@@ -1,18 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Header from "./_components/Header";
+import Header from "./_components/header/Header";
 
 export default function Home() {
   return (
     <>
-      <Header 
-        navItems={[
-          { label: "About", href: "/about" },
-          { label: "Settings", href: "/settings" },
-          { label: "Profile", href: "/my-profile" },
-        ]}
-      />
+      <Header />
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
           <h1 className="font-bold text-3xl text-primary-900">Gift Whisper</h1>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
-interface NavItems {
+interface DesktopMenuNavItems {
   label: string;
   href: string;
 }
@@ -12,13 +12,13 @@ interface UserInfo {
   avatar: string;
 }
 
-interface HeaderProps {
+interface DesktopMenuProps {
   logo?: React.ReactNode;
-  navItems: NavItems[];
+  navItems: DesktopMenuNavItems[];
   userInfo?: UserInfo;
 }
 
-const Header: React.FC<HeaderProps> = ({ logo, navItems, userInfo }) => {
+const DesktopMenu: React.FC<DesktopMenuProps> = ({ logo, navItems, userInfo }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -93,4 +93,4 @@ const Header: React.FC<HeaderProps> = ({ logo, navItems, userInfo }) => {
   );
 };
 
-export default Header;
+export default DesktopMenu;
