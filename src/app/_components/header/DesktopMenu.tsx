@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 
 interface DesktopMenuNavItems {
   label: string;
@@ -18,9 +17,11 @@ interface DesktopMenuProps {
   userInfo?: UserInfo;
 }
 
-const DesktopMenu: React.FC<DesktopMenuProps> = ({ logo, navItems, userInfo }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+const DesktopMenu: React.FC<DesktopMenuProps> = ({
+  logo,
+  navItems,
+  userInfo,
+}) => {
   return (
     <header className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,7 +31,6 @@ const DesktopMenu: React.FC<DesktopMenuProps> = ({ logo, navItems, userInfo }) =
               logo
             ) : (
               <Link href="/">
-                {/* <span className="text-xl font-bold text-secondary-900">Gift Whisper</span> */}
                 <Image
                   src="/logo/logo-white-bg-880by160.png"
                   alt="Gift Whisper Logo"
@@ -72,7 +72,7 @@ const DesktopMenu: React.FC<DesktopMenuProps> = ({ logo, navItems, userInfo }) =
                     />
                   </button>
                 </div>
-                {/* Add dropdown menu here if needed */}
+                {/* Dropdown menu here if needed */}
               </div>
             ) : (
               <Link
@@ -83,12 +83,8 @@ const DesktopMenu: React.FC<DesktopMenuProps> = ({ logo, navItems, userInfo }) =
               </Link>
             )}
           </div>
-          {/* Mobile menu button */}
-          {/* ... (rest of the component remains largely the same) ... */}
         </div>
       </div>
-      {/* Mobile menu */}
-      {/* ... (rest of the component remains largely the same) ... */}
     </header>
   );
 };
