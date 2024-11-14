@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import DesktopMenu from "./DesktopMenu";
 import MobileMenu from "./MobileMenu";
+import Link from "next/link";
+import Image from "next/image";
 
 const Header: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -22,8 +24,16 @@ const Header: React.FC = () => {
     <header className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0">{/* Company logo logo here */}</div>
+          <div className="flex-shrink-0">
+            <Link href="/">
+              <Image
+                src="/logo/logo-white-bg-880by160.png"
+                alt="Gift Whisper Logo"
+                width={200}
+                height={50}
+              />
+            </Link>
+          </div>
 
           {isMobile ? (
             <MobileMenu
