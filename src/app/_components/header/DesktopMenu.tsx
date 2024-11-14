@@ -6,12 +6,13 @@ interface UserInfo {
   avatar: string;
 }
 
+interface DesktopMenuProps {
+  userInfo?: UserInfo;
+}
 
-
-const DesktopMenu: React.FC<UserInfo> = ({ name, avatar }) => {
+const DesktopMenu: React.FC<DesktopMenuProps> = ({ userInfo }) => {
   return (
     <>
-      
       <div className="hidden md:ml-6 md:flex md:items-center">
         {userInfo ? (
           <div className="ml-3 relative">
