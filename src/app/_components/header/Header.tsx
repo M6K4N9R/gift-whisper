@@ -35,23 +35,7 @@ const Header: React.FC = () => {
             </Link>
           </div>
 
-          {isMobile ? (
-            <MobileMenu
-              navItems={[
-                { label: "About", href: "/about" },
-                { label: "Settings", href: "/settings" },
-                { label: "Profile", href: "/my-profile" },
-              ]}
-            />
-          ) : (
-            <DesktopMenu
-              navItems={[
-                { label: "About", href: "/about" },
-                { label: "Settings", href: "/settings" },
-                { label: "Profile", href: "/my-profile" },
-              ]}
-            />
-          )}
+          {isMobile ? <MobileMenu /> : <DesktopMenu />}
         </div>
       </div>
     </header>

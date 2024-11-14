@@ -2,19 +2,12 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-interface MobileMenuNavItems {
-  label: string;
-  href: string;
-}
-
 interface UserInfo {
   name: string;
   avatar: string;
 }
 
 interface MobileMenuProps {
-  logo?: React.ReactNode;
-  navItems: MobileMenuNavItems[];
   userInfo?: UserInfo;
 }
 
@@ -28,7 +21,12 @@ const MobileMenu: React.FC<MobileMenuProps> = () => {
         className="text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900"
       >
         <span className="sr-only">Open main menu</span>
-        <Image src={"/hamburger.svg"} alt="Mobile menu" height={24} width={24} />
+        <Image
+          src={"/hamburger.svg"}
+          alt="Mobile menu"
+          height={24}
+          width={24}
+        />
       </button>
 
       {isOpen && (
