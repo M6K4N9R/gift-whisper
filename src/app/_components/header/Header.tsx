@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import DesktopMenu from "./DesktopMenu";
-import MobileMenu from "./MobileMenu";
+import SharedMenu from "./SharedMenu";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -35,7 +34,7 @@ const Header: React.FC = () => {
             </Link>
           </div>
 
-          {isMobile ? <MobileMenu /> : <DesktopMenu />}
+          <SharedMenu />
         </div>
       </div>
     </header>
