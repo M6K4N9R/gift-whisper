@@ -1,8 +1,8 @@
-// components/header/SharedMenu.tsx
 
-import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
+import Search from './UserSearch';
 
 interface SharedMenuProps {
   logo: React.ReactNode;
@@ -10,9 +10,9 @@ interface SharedMenuProps {
 }
 
 const SharedMenu: React.FC<SharedMenuProps> = ({ logo, onSearch }) => {
-  const [searchQuery, setSearchQuery] = React.useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e: React.FormEvent, searchQuery) => {
     e.preventDefault();
     onSearch(searchQuery);
   };
@@ -22,15 +22,7 @@ const SharedMenu: React.FC<SharedMenuProps> = ({ logo, onSearch }) => {
       <div className="flex items-center">
         {logo}
       </div>
-      <form onSubmit={handleSearch} className="flex-grow mx-4">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search..."
-          className="border rounded-md p-2 w-full"
-        />
-      </form>
+      <Search onSearch={handleSearch}/>
       <div className="flex space-x-4">
         <Link href="/login" className="text-gray-500 hover:text-gray-900">
           Log In
