@@ -14,12 +14,12 @@ const Button: React.FC<ButtonProps> = ({
   className = "",
 }) => {
   const baseStyles =
-    "px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-offset-2";
+    "h-8 w-20 px-4 py-2 rounded-md font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2";
   const variantStyles = {
     primary:
-      "bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500",
+      "bg-primary-900 text-white hover:bg-primary-500 focus:ring-primary-900",
     secondary:
-      "bg-white text-dark-accent-600 border border-dark-accent-300 hover:bg-dark-accent-50 focus:ring-primary-500",
+      "bg-white text-dark-accent-600 border border-dark-accent-300 hover:bg-dark-accent-50 focus:ring-primary-900",
   };
 
   return (

@@ -1,8 +1,8 @@
-
-import Link from 'next/link';
-import Image from 'next/image';
-import { useState } from 'react';
-import Search from './UserSearch';
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+import Search from "./UserSearch";
+import Button from "../Button";
 
 interface SharedMenuProps {
   logo: React.ReactNode;
@@ -19,16 +19,14 @@ const SharedMenu: React.FC<SharedMenuProps> = ({ logo, onSearch }) => {
 
   return (
     <div className="flex items-center justify-between h-16">
-      <div className="flex items-center">
-        {logo}
-      </div>
-      <Search onSearch={handleSearch}/>
-      <div className="flex space-x-4">
-        <Link href="/login" className="text-gray-500 hover:text-gray-900">
-          Log In
+      <div className="flex items-center">{logo}</div>
+      <Search onSearch={handleSearch} />
+      <div className="flex justify-between gap-3">
+        <Link href="/login">
+          <Button variant="secondary">Log In</Button>
         </Link>
-        <Link href="/signup" className="text-gray-500 hover:text-gray-900">
-          Sign Up
+        <Link href="/signup">
+          <Button variant="primary">Sign Up</Button>
         </Link>
       </div>
     </div>
