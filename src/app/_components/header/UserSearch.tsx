@@ -23,7 +23,7 @@ const UserSearch: React.FC<SearchProps> = ({ onSearch }) => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search person by name or email"
-        className="w-full pl-4 pr-10 py-2 text-dark-accent-600 border rounded-md bg-dark-accent-100 focus:outline-none focus:ring-2 focus:ring-primary-900 focus:border-transparent"
+        className="w-full min-w-80 pl-4 pr-10 py-2 text-dark-accent-600 border rounded-md bg-dark-accent-100 focus:outline-none focus:ring-2 focus:ring-primary-900 focus:border-transparent"
       />
       <button
         type="submit"
