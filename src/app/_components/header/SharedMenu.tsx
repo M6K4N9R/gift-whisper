@@ -1,7 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
-import Search from "./UserSearch";
+import UserSearch from "./UserSearch";
 import Button from "../Button";
 
 interface SharedMenuProps {
@@ -20,7 +19,7 @@ const SharedMenu: React.FC<SharedMenuProps> = ({ logo, onSearch }) => {
   return (
     <div className="flex items-center justify-between h-16">
       <div className="flex items-center">{logo}</div>
-      <Search onSearch={handleSearch} />
+      <UserSearch onSearch={handleSearch} />
       <div className="flex justify-between gap-3">
         <Link href="/login">
           <Button variant="secondary">Log in</Button>
@@ -28,6 +27,7 @@ const SharedMenu: React.FC<SharedMenuProps> = ({ logo, onSearch }) => {
         <Link href="/signup">
           <Button variant="primary">Sign up</Button>
         </Link>
+        
       </div>
     </div>
   );
