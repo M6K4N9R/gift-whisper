@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({
   className = "",
 }) => {
   const baseStyles =
-    "h-8 w-20 px-4 py-2 rounded-md font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2";
+    "inline-flex items-center justify-center min-w-18 px-4 py-2 rounded-md font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 whitespace-nowrap";
   const variantStyles = {
     primary:
       "bg-primary-900 text-white hover:bg-primary-500 focus:ring-primary-900",

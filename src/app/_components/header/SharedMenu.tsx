@@ -23,10 +23,10 @@ const SharedMenu: React.FC<SharedMenuProps> = ({ logo, onSearch }) => {
       <Search onSearch={handleSearch} />
       <div className="flex justify-between gap-3">
         <Link href="/login">
-          <Button variant="secondary">Log In</Button>
+          <Button variant="secondary">Log in</Button>
         </Link>
         <Link href="/signup">
-          <Button variant="primary">Sign Up</Button>
+          <Button variant="primary">Sign up</Button>
         </Link>
       </div>
     </div>
