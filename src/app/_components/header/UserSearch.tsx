@@ -22,8 +22,8 @@ const UserSearch: React.FC<SearchProps> = ({ onSearch }) => {
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search by name or email"
-        className="w-full pl-4 pr-10 py-2 border rounded-md bg-dark-accent-100 focus:outline-none focus:ring-2 focus:ring-primary-900 focus:border-transparent"
+        placeholder="Search person by name or email"
+        className="w-full pl-4 pr-10 py-2 text-dark-accent-600 border rounded-md bg-dark-accent-100 focus:outline-none focus:ring-2 focus:ring-primary-900 focus:border-transparent"
       />
       <button
         type="submit"
@@ -39,7 +39,7 @@ const UserSearch: React.FC<SearchProps> = ({ onSearch }) => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-dark-accent-500 hover:text-secondary-900"
+          className="text-dark-accent-500 hover:text-primary-900"
         >
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.3-4.3" />
