@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from "react";
-import SharedMenu from "./SharedMenu";
 import Link from "next/link";
 import Image from "next/image";
+import UserSearch from "./UserSearch";
+import MobileSearch from "./MobileSearch";
+import Button from "../Button";
+import { useState } from "react";
 
-const Header: React.FC = () => {
-  const [isMobile, setIsMobile] = useState(false);
+interface SearchProps {
+  onSearch: (query: string) => void; // Continue with handling search
+}
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
+const Header: React.FC<SearchProps> = ({ onSearch }) => {
+  const [searchQuery, setSearchQuery] = useState("");
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
+  const handleSearch = (e: React.FormEvent, searchQuery: string) => {
+    e.preventDefault();
+    onSearch(searchQuery);
+  };
   return (
     <header className="bg-transparent shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,7 +31,20 @@ const Header: React.FC = () => {
             </Link>
           </div>
 
-          <SharedMenu />
+          <div className="hidden md:block mx-4">
+            <UserSearch onSearch={handleSearch} />
+          </div>
+          <div className="md:hidden">
+            <MobileSearch onSearch={handleSearch} />
+          </div>
+          <div className="flex justify-between gap-3">
+            <Link href="/login">
+              <Button variant="secondary">Log in</Button>
+            </Link>
+            <Link href="/signup">
+              <Button variant="primary">Sign up</Button>
+            </Link>
+          </div>
         </div>
       </div>
     </header>
@@ -42,101 +52,3 @@ const Header: React.FC = () => {
 };
 
 export default Header;
-
-// ================================================================ OLD WAY
-// import Link from "next/link";
-// import Image from "next/image";
-// import { useState } from "react";
-
-// interface NavItems {
-//   label: string;
-//   href: string;
-// }
-
-// interface UserInfo {
-//   name: string;
-//   avatar: string;
-// }
-
-// interface HeaderProps {
-//   logo?: React.ReactNode;
-//   navItems: NavItems[];
-//   userInfo?: UserInfo;
-// }
-
-// const Header: React.FC<HeaderProps> = ({ logo, navItems, userInfo }) => {
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-//   return (
-//     <header className="bg-white shadow-md">
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//         <div className="flex justify-between items-center h-16">
-//           <div className="flex-shrink-0 flex items-center">
-//             {logo ? (
-//               logo
-//             ) : (
-//               <Link href="/">
-//                 {/* <span className="text-xl font-bold text-secondary-900">Gift Whisper</span> */}
-//                 <Image
-//                   src="/logo/logo-white-bg-880by160.png"
-//                   alt="Gift Whisper Logo"
-//                   width={200}
-//                   height={50}
-//                 />
-//               </Link>
-//             )}
-//           </div>
-//           <nav className="hidden md:flex flex-1 justify-end mx-6 space-x-10">
-//             {navItems.map((item) => (
-//               <Link
-//                 key={item.href}
-//                 href={item.href}
-//                 className="text-dark-accent-500 hover:text-dark-accent-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
-//               >
-//                 {item.label}
-//               </Link>
-//             ))}
-//           </nav>
-//           <div className="hidden md:ml-6 md:flex md:items-center">
-//             {userInfo ? (
-//               <div className="ml-3 relative">
-//                 <div>
-//                   <button
-//                     type="button"
-//                     className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-//                     id="user-menu"
-//                     aria-expanded="false"
-//                     aria-haspopup="true"
-//                   >
-//                     <span className="sr-only">Open user menu</span>
-//                     <Image
-//                       className="h-8 w-8 rounded-full"
-//                       src={userInfo.avatar}
-//                       alt={userInfo.name}
-//                       width={32}
-//                       height={32}
-//                     />
-//                   </button>
-//                 </div>
-//                 {/* Add dropdown menu here if needed */}
-//               </div>
-//             ) : (
-//               <Link
-//                 href="/login"
-//                 className="text-dark-accent-500 hover:text-primary-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
-//               >
-//                 Log in
-//               </Link>
-//             )}
-//           </div>
-//           {/* Mobile menu button */}
-//           {/* ... (rest of the component remains largely the same) ... */}
-//         </div>
-//       </div>
-//       {/* Mobile menu */}
-//       {/* ... (rest of the component remains largely the same) ... */}
-//     </header>
-//   );
-// };
-
-// export default Header;
