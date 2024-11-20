@@ -32,8 +32,8 @@ const MobileSearch: React.FC<MobileSearchProps> = ({ onSearch }) => {
       </button>
       {isOpen &&
         createPortal(
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-lg p-4 w-full max-w-md">
+          <div className="fixed inset-x-0 top-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+            <div className="bg-dark rounded-lg p-1 w-full max-w-md">
               <UserSearch
                 onSearch={(query) => {
                   onSearch(query);
