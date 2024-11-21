@@ -61,7 +61,7 @@ export default function Home() {
         <div
           className={`flex-grow flex flex-col justify-center max-w-96 mx-2 min-h-80 items-center transition-all duration-300 ${
             isAnimating
-              ? "opacity-0 transform translate-x-full"
+              ? "opacity-0 transform -translate-x-full"
               : "opacity-100 transform translate-x-0"
           }`}
         >
