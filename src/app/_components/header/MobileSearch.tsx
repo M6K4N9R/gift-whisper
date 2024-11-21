@@ -13,7 +13,7 @@ const MobileSearch: React.FC<MobileSearchProps> = ({ onSearch }) => {
 
   return (
     <>
-      <button onClick={toggleSearch} className="md:hidden">
+      <button onClick={toggleSearch} className="md:hidden flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -33,7 +33,7 @@ const MobileSearch: React.FC<MobileSearchProps> = ({ onSearch }) => {
       {isOpen &&
         createPortal(
           <div className="fixed inset-x-0 top-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-dark rounded-lg p-1 w-full max-w-md">
+            <div className="flex justify-between bg-dark rounded-lg p-1 w-full max-w-md">
               <UserSearch
                 onSearch={(query) => {
                   onSearch(query);
@@ -42,9 +42,22 @@ const MobileSearch: React.FC<MobileSearchProps> = ({ onSearch }) => {
               />
               <button
                 onClick={toggleSearch}
-                className="mt-4 w-full bg-gray-200 text-gray-800 py-2 rounded-md hover:bg-gray-300"
+                className="bg-dark-accent-900 rounded-lg w-14 flex items-center justify-center"
               >
-                Close
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#F4F6F7"
+                  stroke-width="1.25"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
               </button>
             </div>
           </div>,
