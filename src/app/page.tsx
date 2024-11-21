@@ -1,8 +1,44 @@
 "use client";
 
 import Header from "./_components/header/Header";
+import { useState } from "react";
 
 export default function Home() {
+const [currentStep, setCurrentStep] = useState(0);
+const [isAnimating, setIsAnimating] = useState(false);
+
+const content = [
+  {title: "Create your Gift list for any occasion", subtitle: "Add gifts from any website and share it with anyone"},
+  {page1Title: "Create a Wishlist", page1Description: "Wishlists can be for yourself, for a friend, or even a pet!", backButton: true},
+  {page2Title: "Add Wishes", page2Description: "Paste a link from any website. We'll load in the details.", backButton: true},
+  {page3Title: "Share & Claim", page3Description: "Friends claim your wishes anonymously. Be Surprised.", backButton: true},
+];
+
+const handleLearnMore = () => {
+  setIsAnimating(true);
+  setTimeout(() => {
+    setCurrentStep(1);
+    setIsAnimating(false);
+  }, 300);
+};
+
+const handleNext = () => {
+  setIsAnimating(true);
+  setTimeout(() => {
+    setCurrentStep(prev => prev + 1);
+    setIsAnimating(false);
+  }, 300);
+};
+
+const handleBackButton = () => {
+  setIsAnimating(true);
+  setTimeout(() => {
+    setCurrentStep(prev => prev - 1);
+    setIsAnimating(false);
+  }, 300);
+}
+
+
   return (
     <>
       <Header />
