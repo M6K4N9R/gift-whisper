@@ -10,7 +10,7 @@ export default function Home() {
   const content = [
     {
       title: "Create your Gift list for any occasion",
-      subtitle: "Add gifts from any website and share it with anyone",
+      explanation: "Add gifts from any website and share it with anyone",
     },
     {
       title: "Create a Wishlist",
@@ -57,61 +57,57 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div
-        className={`flex-grow flex flex-col justify-center items-center transition-all duration-300 ${
-          isAnimating
-            ? "opacity-0 transform translate-x-full"
-            : "opacity-100 transform translate-x-0"
-        }`}
-      >
-        {currentStep === 0 ? (
-          <h1 className="font-gelica text-4xl sm:text-5xl text-white text-center">
-            {content[currentStep].title}
-          </h1>
-        ) : (
-          <>
-            <p className=" text-lg text-white text-center">
-              {content[currentStep].title}
-            </p>
-            <p className="text-white text-center">
-              {content[currentStep].explanation}
-            </p>
-            {content[currentStep].backButton && (
-              <button onClick={handleBackButton} className="mt-4 text-white">
-                Back
-              </button>
-            )}
-          </>
-        )}
-      </div>
-
-      <div className="mt-8 flex flex-col sm:flex-row gap-4">
-        <button className="px-4 py-2 rounded-3xl border hover:border-orange-600 hover:bg-slate-900 transition-all ease-in-out">
-          <svg
-            className="inline-block mr-3"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="12" cy="12" r="10" />
-            <path d="M8 12h8" />
-            <path d="M12 8v8" />
-          </svg>
-          Create a list
-        </button>
-        <button
-          onClick={currentStep === 0 ? handleLearnMore : handleNext}
-          className="px-4 py-2 rounded-3xl border hover:border-orange-600 hover:bg-slate-900 transition-all ease-in-out"
+      <main className="min-h-screen">
+        <div
+          className={`flex-grow flex flex-col justify-center max-w-96 mx-2 min-h-80 items-center transition-all duration-300 ${
+            isAnimating
+              ? "opacity-0 transform translate-x-full"
+              : "opacity-100 transform translate-x-0"
+          }`}
         >
-          {currentStep === 0 ? "Learn More" : "Next"}
-        </button>
-      </div>
+          {currentStep === 0 ? (
+            <>
+              <h1 className="font-gelica text-4xl sm:text-5xl text-white text-center">
+                {content[currentStep].title}
+              </h1>
+              <h2 className="mt-6 mx-4 text-center">
+                {content[currentStep].explanation}
+              </h2>
+            </>
+          ) : (
+            <>
+              <div className="flex flex-col justify-center items-center rounded-lg mx-4 p-4 border border-dark-accent-600">
+                <h2 className="font-gelica text-xl text-white text-center">
+                  {content[currentStep].title}
+                </h2>
+                <p className="mt-6 mx-4 text-center">
+                  {content[currentStep].explanation}
+                </p>
+                {content[currentStep].backButton && (
+                  <button
+                    onClick={handleBackButton}
+                    className="mt-4 font-medium self-end"
+                  >
+                    <span>&#8592;</span> Back
+                  </button>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+
+        <div className="mt-8 flex justify-center items-center gap-4">
+          <button className="inline-flex items-center justify-center min-w-32 px-4 py-2 rounded-3xl font-medium border border-primary-900 hover:border-white bg-primary-900 hover:bg-white text-white hover:text-background transition-all ease-in-out">
+            Create a list
+          </button>
+          <button
+            onClick={currentStep === 0 ? handleLearnMore : handleNext}
+            className="inline-flex items-center justify-center min-w-32 px-4 py-2 rounded-3xl font-medium border border-primary-900 hover:border-white bg-background text-primary-900 hover:text-white transition-all ease-in-out"
+          >
+            {currentStep === 0 ? "Learn More" : "Next"}
+          </button>
+        </div>
+      </main>
 
       {/* <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
