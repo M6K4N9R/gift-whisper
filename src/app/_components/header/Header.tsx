@@ -23,7 +23,7 @@ const Header: React.FC<SearchProps> = ({ onSearch }) => {
           <div className="shrink-0 min-w-5">
             <Link href="/">
               <Image
-                src="/logo/logo-white-bg-880by160.png"
+                src="/logo/logo-blue-dark.png"
                 alt="Gift Whisper Logo"
                 width={200}
                 height={50}
