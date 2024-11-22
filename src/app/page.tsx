@@ -101,7 +101,11 @@ export default function Home() {
         </button>
         <button
           onClick={currentStep === 0 ? handleLearnMore : handleNext}
-          className="inline-flex items-center justify-center min-w-32 px-4 py-2 rounded-3xl font-medium border border-primary-900 hover:border-white bg-background text-primary-900 hover:text-white transition-all ease-in-out"
+          className={`${
+            currentStep === content.length - 1
+              ? `hidden`
+              : `inline-flex items-center justify-center min-w-32 px-4 py-2 rounded-3xl font-medium border border-primary-900 hover:border-white bg-background text-primary-900 hover:text-white transition-all ease-in-out`
+          }`}
         >
           {currentStep === 0 ? "Learn More" : "Next"}
         </button>
