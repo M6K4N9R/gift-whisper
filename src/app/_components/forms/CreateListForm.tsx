@@ -46,33 +46,51 @@ const CreateListForm: React.FC<CreateListFormProps> = ({ onClose }) => {
     console.log({ listType, ...formData });
     onClose();
   };
-// ================ Refacture later. Put in root Layout or global.css
+  // ================ Refacture later. Put in root Layout or global.css
   const themeClasses = isDarkMode
     ? "bg-dark-accent-800 text-foreground"
     : "bg-background text-dark-accent-900";
 
   const buttonClasses = isDarkMode
-    ? "bg-primary-700 hover:bg-primary-600 text-foreground"
-    : "bg-primary-400 hover:bg-primary-500 text-dark-accent-900";
+    ? "bg-dark-accent-700 hover:bg-dark-accent-600 text-foreground rounded-lg"
+    : "bg-dark-accent-100 hover:bg-dark-accent-200 text-dark-accent-900 rouunded-lg";
 
   const inputClasses = isDarkMode
     ? "bg-dark-accent-700 border-dark-accent-600 text-foreground"
     : "bg-background border-dark-accent-300 text-dark-accent-900";
-//===================================================================
+  //===================================================================
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className={`rounded-lg p-6 w-full max-w-md ${themeClasses}`}>
         {step === 1 ? (
           <div>
-            <h2 className="text-2xl font-bold mb-4 text-center">
+            <h2 className="font-gelica text-2xl font-bold mb-4 text-center">
               Choose List Type
             </h2>
-            <div className="flex justify-center space-x-4">
+            <div className="flex flex-col justify-center items-center gap-4">
               <button
                 onClick={() => handleTypeSelect("Gift List")}
                 className={`px-4 py-2 rounded ${buttonClasses}`}
               >
-                Gift List
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="4" x2="20" y1="12" y2="12" />
+                  <line x1="4" x2="20" y1="6" y2="6" />
+                  <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+                <div>
+                  <h2 className="text-lg font-bold">Gift List</h2>
+                  <p className="text-sm">Birthday, Christmas, etc.</p>
+                </div>
               </button>
               <button
                 onClick={() => handleTypeSelect("Event")}
