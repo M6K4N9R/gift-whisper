@@ -135,6 +135,9 @@ const CreateListForm: React.FC<CreateListFormProps> = ({ onClose }) => {
                 </div>
               </button>
             </div>
+            <div className="opacity-30 text-center my-1 text-sm">
+              Select a list type to continue
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
