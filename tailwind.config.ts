@@ -10,7 +10,8 @@ export default {
     extend: {
       fontFamily: {
         gelica: ["var(--font-gelica)"],
-        workSans: ['"Work Sans"', 'Helvetica', 'sans-serif'],
+        'work-sans': ['var(--font-work-sans)', 'Helvetica', 'sans-serif'],
+        'work-sans-italic': ['var(--font-work-sans-italic)', 'Helvetica', 'sans-serif'],
       },
       colors: {
         background: "var(--background)",

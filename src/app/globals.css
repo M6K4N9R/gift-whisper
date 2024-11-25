@@ -33,5 +33,5 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: "Work Sans", Helvetica, sans-serif;
+  font-family: var(--font-work-sans), Helvetica, sans-serif;
 }

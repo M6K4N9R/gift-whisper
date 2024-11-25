@@ -17,6 +17,17 @@ const gelica = localFont({
   variable: "--font-gelica",
   weight: "800",
 });
+const workSans = localFont({
+  src: "./fonts/WorkSans-VariableFont_wght.ttf",
+  variable: "--font-work-sans",
+  weight: "100 900",
+});
+const workSansItalic = localFont({
+  src: "/fonts/WorkSans-Italic-VariableFont_wght.ttf",
+  variable: "--font-work-sans-italic",
+  weight: "100 900",
+  style: "italic",
+});
 
 export const metadata: Metadata = {
   title: "Create your Gift list for any occasion",
@@ -31,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${gelica.variable} antialiased`}
+        className={`${workSans.variable} ${workSansItalic.variable} ${gelica.variable} antialiased`}
       >
         {children}
       </body>
