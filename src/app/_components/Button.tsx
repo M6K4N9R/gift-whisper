@@ -1,3 +1,6 @@
+import React from "react";
+import { Interface } from "readline";
+
 interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
@@ -32,3 +35,6 @@ const Button: React.FC<ButtonProps> = ({
 };
 
 export default Button;
+
+
+

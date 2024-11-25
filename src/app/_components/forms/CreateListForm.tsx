@@ -53,11 +53,11 @@ const CreateListForm: React.FC<CreateListFormProps> = ({ onClose }) => {
 
   const buttonClasses = isDarkMode
     ? "bg-dark-accent-700 hover:bg-dark-accent-600 text-foreground rounded-lg"
-    : "bg-dark-accent-100 hover:bg-dark-accent-200 text-dark-accent-900 rouunded-lg";
+    : "bg-dark-accent-100 hover:bg-dark-accent-200 text-dark-accent-900 rounded-lg";
 
   const inputClasses = isDarkMode
-    ? "bg-dark-accent-700 border-dark-accent-600 text-foreground"
-    : "bg-background border-dark-accent-300 text-dark-accent-900";
+    ? "bg-dark-accent-700 border-dark-accent-700 text-foreground rounded-lg"
+    : "bg-background border-dark-accent-300 text-dark-accent-900 rounded-lg";
   //===================================================================
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -76,7 +76,7 @@ const CreateListForm: React.FC<CreateListFormProps> = ({ onClose }) => {
             <div className="flex flex-col justify-center items-center gap-4 p-8">
               <button
                 onClick={() => handleTypeSelect("Gift List")}
-                className={`w-full px-5 py-2 rounded ${buttonClasses}`}
+                className={`w-full px-5 py-2 ${buttonClasses}`}
               >
                 <div className="flex justify-between items-center">
                   <svg
@@ -105,7 +105,7 @@ const CreateListForm: React.FC<CreateListFormProps> = ({ onClose }) => {
               </button>
               <button
                 onClick={() => handleTypeSelect("Event")}
-                className={`w-full px-5 py-2 rounded ${buttonClasses}`}
+                className={`w-full px-5 py-2 ${buttonClasses}`}
               >
                 <div className="flex justify-between items-center">
                   <svg
@@ -141,30 +141,54 @@ const CreateListForm: React.FC<CreateListFormProps> = ({ onClose }) => {
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">List Details</h2>
-              <button type="button" onClick={onClose} className="text-2xl">
+            <div className="w-full max-w-sm relative">
+              <h2 className="font-gelica text-2xl font-bold mb-4 text-center">
+                List Details
+              </h2>
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex justify-center items-center absolute text-2xl -top-2 -right-6 bg-dark-accent-600 hover:bg-dark-accent-500 rounded-xl w-7 h-7"
+              >
                 &times;
               </button>
             </div>
-            <div className="mb-4">
-              <span>{listType}</span>
+            <div
+              className={`flex justify-between items-center w-full px-5 py-2 ${buttonClasses}`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="8" width="18" height="4" rx="1" />
+                <path d="M12 8v13" />
+                <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
+                <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5" />
+              </svg>
+              <span className="flex-grow ml-4">{listType}</span>
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="ml-2 text-secondary-900 hover:text-secondary-700"
+                className="flex-none ml-2 text-secondary-900 hover:text-secondary-700 underline"
               >
                 Change
               </button>
             </div>
-            <div className="mb-4">
+            <div className="my-4">
               <label className="block mb-2">Title</label>
               <input
                 type="text"
                 name="title"
                 value={formData.title}
                 onChange={handleChange}
-                className={`w-full p-2 border rounded ${inputClasses}`}
+                className={`w-full p-2 ${inputClasses}`}
                 required
               />
             </div>
@@ -175,7 +199,7 @@ const CreateListForm: React.FC<CreateListFormProps> = ({ onClose }) => {
                 name="eventDate"
                 value={formData.eventDate}
                 onChange={handleChange}
-                className={`w-full p-2 border rounded ${inputClasses}`}
+                className={`w-full p-2 border ${inputClasses}`}
                 required
               />
             </div>
@@ -185,13 +209,13 @@ const CreateListForm: React.FC<CreateListFormProps> = ({ onClose }) => {
                 name="description"
                 value={formData.description}
                 onChange={handleChange}
-                className={`w-full p-2 border rounded ${inputClasses}`}
+                className={`w-full p-2 border ${inputClasses}`}
                 rows={3}
               ></textarea>
             </div>
             <button
               type="submit"
-              className={`w-full px-4 py-2 rounded ${buttonClasses}`}
+              className={`w-full px-4 py-2 ${buttonClasses}`}
             >
               Create List
             </button>
