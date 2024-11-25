@@ -51,9 +51,9 @@ const MobileSearch: React.FC<MobileSearchProps> = ({ onSearch }) => {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#F4F6F7"
-                  stroke-width="1.25"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.25"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
                   <path d="M18 6 6 18" />
                   <path d="m6 6 12 12" />
