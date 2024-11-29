@@ -29,36 +29,40 @@ export default function Login() {
   };
 
   return (
-    <section className="w-full h-screen flex items-center justify-center">
+    <section className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <form
-        className="p-6 w-full max-w-[400px] flex flex-col justify-between items-center gap-2 
-        border border-solid border-black bg-white rounded"
+        className="p-6 w-full max-w-md flex flex-col justify-between items-center gap-4 
+        bg-dark-accent-800 text-foreground rounded-lg"
         onSubmit={handleSubmit}
       >
-        {error && <div className="text-black">{error}</div>}
-        <h1 className="mb-5 w-full text-2xl font-bold">Sign In</h1>
-        <label className="w-full text-sm">Email</label>
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full h-8 border border-solid border-black rounded p-2"
-          name="email"
-        />
-        <label className="w-full text-sm">Password</label>
-        <div className="flex w-full">
+        {error && <div className="text-red-500 w-full">{error}</div>}
+        <h1 className="mb-5 w-full text-2xl font-bold font-gelica text-center">
+          Sign In
+        </h1>
+        <div className="w-full">
+          <label className="block mb-2">Email</label>
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full p-2 bg-dark-accent-700 border-dark-accent-700 text-foreground rounded-lg"
+            name="email"
+          />
+        </div>
+        <div className="w-full">
+          <label className="block mb-2">Password</label>
           <input
             type="password"
             placeholder="Password"
-            className="w-full h-8 border border-solid border-black rounded p-2"
+            className="w-full p-2 bg-dark-accent-700 border-dark-accent-700 text-foreground rounded-lg"
             name="password"
           />
         </div>
-        <button className="w-full border border-solid border-black rounded">
+        <button className="w-full px-4 py-2 bg-primary-700 hover:bg-primary-600 text-foreground rounded-lg">
           Sign In
         </button>
         <Link
           href="/register"
-          className="text-sm text-[#888] transition duration-150 ease hover:text-black"
+          className="text-secondary-900 hover:text-secondary-700"
         >
           Don&apos;t have an account?
         </Link>
