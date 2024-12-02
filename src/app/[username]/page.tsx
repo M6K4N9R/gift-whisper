@@ -1,17 +1,26 @@
-import { useState } from "react";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
+
 import Link from "next/link";
-import CreateListForm from "../_components/forms/CreateListForm";
 
-const UserProfile = ({ user }) => {
-    const [showCreateListForm, setShowCreateListForm] = useState<boolean>(false);
+async function getUserData(username: string) {
+  const session = await getServerSession(authOptions);
+  if (!session || session.user.name !== username) {
+    redirect("/login");
+  }
+  return session.user;
+}
 
+const UserProfile = async ({ params }: { params: { username: string } }) => {
+  const user = await getUserData(params.username);
 
   return (
     <section className="p-6 max-w-2xl mx-auto">
       <div className="flex flex-col items-center">
         <div className="relative">
           <img
-            src={user.profilePicture || "/default-profile.png"}
+            src={user.image || "/default-profile.png"}
             alt={`${user.name}'s profile`}
             className="w-32 h-32 rounded-full border border-dark-accent-700"
           />
@@ -21,21 +30,16 @@ const UserProfile = ({ user }) => {
         </div>
         <h1 className="text-3xl font-bold mt-4">{user.name}</h1>
         <div className="mt-6 flex gap-4">
-          <Link href={`/${user.username}#archive`}>
+          <Link href={`/${params.username}#archive`}>
             <button className="bg-secondary-700 text-white px-4 py-2 rounded-lg">
               Archive
             </button>
           </Link>
-          <button
-            onClick={() => setShowCreateListForm(true)}
-            className="bg-primary-700 text-white px-4 py-2 rounded-lg"
-          >
+          <button className="bg-primary-700 text-white px-4 py-2 rounded-lg">
             Create List
           </button>
         </div>
       </div>
-
-      {showCreateListForm && <CreateListForm onClose={() => setShowCreateListForm(false)} />}
     </section>
   );
 };

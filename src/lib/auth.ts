@@ -8,56 +8,62 @@ import credentials from "next-auth/providers/credentials";
 
 import bcrypt from "bcryptjs";
 
-export const authOptions: NextAuthOptions  = {
+export const authOptions: NextAuthOptions = {
+  providers: [
+    credentials({
+      name: "Credentials",
 
-    providers: [
-  
-      credentials({
-  
-        name: "Credentials",
-  
-        id: "credentials",
-  
-        credentials: {
-  
-          email: { label: "Email", type: "text" },
-  
-          password: { label: "Password", type: "password" },
-  
-        },
-  
-        async authorize(credentials) {
-            await connectDB();
+      id: "credentials",
 
-const user = await User.findOne({
+      credentials: {
+        email: { label: "Email", type: "text" },
 
-  email: credentials?.email,
+        password: { label: "Password", type: "password" },
+      },
 
-}).select("+password");
+      async authorize(credentials) {
+        await connectDB();
 
-if (!user) throw new Error("Wrong Email");
+        const user = await User.findOne({
+          email: credentials?.email,
+        }).select("+password");
 
-const passwordMatch = await bcrypt.compare(
+        if (!user) throw new Error("Wrong Email");
 
-  credentials!.password,
+        const passwordMatch = await bcrypt.compare(
+          credentials!.password,
 
-  user.password
+          user.password
+        );
 
-);
+        if (!passwordMatch) throw new Error("Wrong Password");
 
-if (!passwordMatch) throw new Error("Wrong Password");
+        return user;
+      },
+    }),
+  ],
 
-return user;
-        },
-  
-      }),
-  
-    ],
-  
-    session: {
-  
-      strategy: "jwt",
-  
-    }
-  
-  };
+  session: {
+    strategy: "jwt",
+  },
+
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.name = user.name;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/login",
+    error: "/auth/error",
+  },
+};

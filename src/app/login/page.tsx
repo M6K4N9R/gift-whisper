@@ -1,7 +1,7 @@
 "use client";
 
+import { signIn, getSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -24,7 +24,12 @@ export default function Login() {
     }
 
     if (res?.ok) {
-      return router.push("/");
+      const session = await getSession();
+      if (session?.user?.name) {
+        return router.push(`/${session.user.name}`);
+      } else {
+        return router.push("/");
+      }
     }
   };
 
