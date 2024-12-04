@@ -4,6 +4,7 @@ import { signIn, getSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { log } from "console";
 
 export default function Login() {
   const [error, setError] = useState("");
@@ -21,12 +22,15 @@ export default function Login() {
 
     if (res?.error) {
       setError(res.error as string);
+      console.log("Something went wrong");
     }
 
     if (res?.ok) {
       const session = await getSession();
       if (session?.user?.name) {
-        return router.push(`/${session.user.name}`);
+        console.log("All is ok");
+
+        return router.push(`/${encodeURIComponent(session.user.name)}`);
       } else {
         return router.push("/");
       }

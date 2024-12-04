@@ -9,7 +9,7 @@ async function getUserData(username: string) {
   if (!session || session.user.name !== username) {
     redirect("/login");
   }
-  return session.user;
+  return session.user ?? { name: "", image: "" };
 }
 
 const UserProfile = async ({ params }: { params: { username: string } }) => {
@@ -21,14 +21,14 @@ const UserProfile = async ({ params }: { params: { username: string } }) => {
         <div className="relative">
           <img
             src={user.image || "/default-profile.png"}
-            alt={`${user.name}'s profile`}
+            alt={`${user.name || 'User'}'s profile`}
             className="w-32 h-32 rounded-full border border-dark-accent-700"
           />
           <button className="absolute bottom-0 right-0 bg-primary-700 text-white p-2 rounded-full">
             Add Photo
           </button>
         </div>
-        <h1 className="text-3xl font-bold mt-4">{user.name}</h1>
+        <h1 className="text-3xl font-bold mt-4">{user.name || 'User'}</h1>
         <div className="mt-6 flex gap-4">
           <Link href={`/${params.username}#archive`}>
             <button className="bg-secondary-700 text-white px-4 py-2 rounded-lg">
@@ -43,5 +43,6 @@ const UserProfile = async ({ params }: { params: { username: string } }) => {
     </section>
   );
 };
+
 
 export default UserProfile;
