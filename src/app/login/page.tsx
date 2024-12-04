@@ -4,7 +4,6 @@ import { signIn, getSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { log } from "console";
 
 export default function Login() {
   const [error, setError] = useState("");
