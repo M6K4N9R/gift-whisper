@@ -45,7 +45,7 @@ export default function Register() {
       >
         {error && <div className="text-red-500 w-full">{error}</div>}
         <h1 className="mb-5 w-full text-2xl font-bold font-gelica text-center">
-          Register
+          Sign Up
         </h1>
 
         <div className="w-full">

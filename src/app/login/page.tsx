@@ -45,7 +45,7 @@ export default function Login() {
       >
         {error && <div className="text-red-500 w-full">{error}</div>}
         <h1 className="mb-5 w-full text-2xl font-bold font-gelica text-center">
-          Sign In
+          Log In
         </h1>
         <div className="w-full">
           <label className="block mb-2">Email</label>
@@ -66,7 +66,7 @@ export default function Login() {
           />
         </div>
         <button className="w-full px-4 py-2 bg-primary-700 hover:bg-primary-600 text-foreground rounded-lg">
-          Sign In
+          Log In
         </button>
         <Link
           href="/register"
