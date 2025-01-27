@@ -1,6 +1,7 @@
 "use server"
 
 import { connectDB } from "@/lib/mongodb";
+import { signIn } from "next-auth/react";
 
 import User from "@/models/User";
 
@@ -47,3 +48,22 @@ export const register = async (values: any) => {
     }
 
 }
+
+export async function authenticate(
+    prevState: string | undefined,
+    formData: FormData
+  ) {
+    try {
+      await signIn("credentials", formData);
+    } catch (error) {
+      if (error instanceof AuthError) {
+        switch (error.type) {
+          case "CredentialsSignin":
+            return "Invalid Credentials.";
+          default:
+            "Something went wrong";
+        }
+      }
+      throw error;
+    }
+  }

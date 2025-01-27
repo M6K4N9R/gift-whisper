@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import Link from "next/link";
 
-import { register } from "../../../actions/register";
+import { register } from "../../../lib/actions/register";
 
 export default function Register() {
   const [error, setError] = useState<string>();
