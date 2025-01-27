@@ -2,9 +2,7 @@
 
 import { connectDB } from "@/app/lib/mongodb";
 import { signIn } from "next-auth/react";
-
 import User from "@/models/User";
-
 import bcrypt from "bcryptjs";
 
 export const register = async (values: any) => {
@@ -25,9 +23,7 @@ export const register = async (values: any) => {
 
     const user = new User({
       name,
-
       email,
-
       password: hashedPassword,
     });
 
