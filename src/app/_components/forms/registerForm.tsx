@@ -1,17 +1,13 @@
 "use client";
 
 import { FormEvent, useRef, useState } from "react";
-
 import { useRouter } from "next/navigation";
-
 import Link from "next/link";
 import { register } from "@/app/lib/actions";
 
 export default function Register() {
   const [error, setError] = useState<string>();
-
   const router = useRouter();
-
   const ref = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (formData: FormData) => {
@@ -77,7 +73,10 @@ export default function Register() {
           />
         </div>
 
-        <button className="w-full px-4 py-2 bg-primary-700 hover:bg-primary-600 text-foreground rounded-lg mt-4">
+        <button
+          type="submit"
+          className="w-full px-4 py-2 bg-primary-700 hover:bg-primary-600 text-foreground rounded-lg mt-4"
+        >
           Sign up
         </button>
 

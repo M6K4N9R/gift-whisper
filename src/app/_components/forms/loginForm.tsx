@@ -71,7 +71,10 @@ export default function LoginForm() {
             name="password"
           />
         </div>
-        <button className="w-full px-4 py-2 bg-primary-700 hover:bg-primary-600 text-foreground rounded-lg">
+        <button
+          type="submit"
+          className="w-full px-4 py-2 bg-primary-700 hover:bg-primary-600 text-foreground rounded-lg"
+        >
           Log In
         </button>
         <Link
