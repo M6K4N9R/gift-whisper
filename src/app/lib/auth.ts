@@ -7,6 +7,7 @@ import type { NextAuthOptions } from "next-auth";
 import credentials from "next-auth/providers/credentials";
 
 import bcrypt from "bcryptjs";
+import { log } from "console";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -27,6 +28,8 @@ export const authOptions: NextAuthOptions = {
         const user = await User.findOne({
           email: credentials?.email,
         }).select("+password");
+
+        console.log("User found: ", user);
 
         if (!user) throw new Error("Wrong Email");
 
@@ -49,6 +52,9 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, user }) {
+      console.log("JWT callback - user: ", user);
+      console.log("JWT callback - token: ", token);
+
       if (user) {
         token.id = user.id;
         token.name = user.name;
@@ -56,8 +62,11 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
+      console.log("Session callback - session: ", session);
+      console.log("Session callback - token: ", token);
       if (token && session.user) {
-        session.user.id = token.id;
+        session.user.id = token.id as string;
+        session.user.name = token.name as string;
       }
       return session;
     },

@@ -5,6 +5,11 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+function convertName(name: string) {
+  const slug = name.toLocaleLowerCase().replace(" ", "-");
+  return slug;
+}
+
 export default function LoginForm() {
   const [error, setError] = useState("");
   const router = useRouter();
@@ -27,9 +32,10 @@ export default function LoginForm() {
     if (res?.ok) {
       const session = await getSession();
       if (session?.user?.name) {
+        const username = convertName(session.user.name);
         console.log("All is ok");
 
-        return router.push(`/${encodeURIComponent(session.user.name)}`);
+        return router.push(`/${username}`);
       } else {
         return router.push("/");
       }
