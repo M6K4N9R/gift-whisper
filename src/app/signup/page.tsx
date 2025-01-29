@@ -1,11 +1,11 @@
 "use client";
 
-import RegisterForm from "../_components/forms/registerForm";
+import { SignupForm } from "../_components/forms/signup-form";
 
-export default function LoginPage() {
+export default function SignupPage() {
   return (
     <section className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <RegisterForm />
+      <SignupForm />
     </section>
   );
 }
