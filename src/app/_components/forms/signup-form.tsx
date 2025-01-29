@@ -1,42 +1,24 @@
 "use client";
 
 import { signup } from "@/app/actions/auth";
-import { useActionState } from "react";
+import { useState } from "react";
 
 export default function SignupForm() {
-  const [state, action, pending] = useActionState(signup, undefined);
+  const [error, setError] = useState<string | null>(null);
 
+  async function handleSubmit(formData: FormData) {
+    const result = await signup(formData);
+    if (result?.error) {
+      setError(JSON.stringify(result.error));
+    }
+  }
   return (
-    <form action={action}>
-      <div>
-        <label htmlFor="name">Name</label>
-        <input id="name" name="name" placeholder="Name" />
-      </div>
-      {state?.errors?.name && <p>{state.errors.name}</p>}
-
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" name="email" placeholder="Email" />
-      </div>
-      {state?.errors?.email && <p>{state.errors.email}</p>}
-
-      <div>
-        <label htmlFor="password">Password</label>
-        <input id="password" name="password" type="password" />
-      </div>
-      {state?.errors?.password && (
-        <div>
-          <p>Password must:</p>
-          <ul>
-            {state.errors.password.map((error) => (
-              <li key={error}>- {error}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-      <button disabled={pending} type="submit">
-        Sign Up
-      </button>
+    <form action={handleSubmit}>
+      {error && <div className="error">{error}</div>}
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Sign Up</button>
     </form>
   );
 }

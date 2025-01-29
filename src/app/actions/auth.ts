@@ -1,7 +1,11 @@
+'use server'
+
 import { SignupFormSchema, FormState } from "@/app/lib/definitions";
 import bcrypt from "bcryptjs";
 import { connectDB } from "@/app/actions/mongodb";
 import User from "@/models/User";
+import { createSession } from "../lib/session";
+import { redirect } from "next/navigation";
 
 export async function signup(state: FormState, formData: FormData) {
   // Validate form fields
@@ -43,15 +47,15 @@ export async function signup(state: FormState, formData: FormData) {
 
     const savedUser = await user.save();
     console.log("User created: ", savedUser);
+    await createSession(savedUser._id);
+    redirect("/[username]");
   } catch (e) {
     console.log(e);
   }
 
-  // TODO:
   // 4. Create user session
-  // 5. Redirect user
 
-  // Call the provider or db to create a user...
+  // 5. Redirect user
 }
 
 // =============================================================== OLD CODE
