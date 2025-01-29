@@ -1,20 +1,56 @@
-import { SignupFormSchema, FormState } from '@/app/lib/definitions'
- 
+import { SignupFormSchema, FormState } from "@/app/lib/definitions";
+import bcrypt from "bcryptjs";
+import { connectDB } from "@/app/actions/mongodb";
+import User from "@/models/User";
+
 export async function signup(state: FormState, formData: FormData) {
   // Validate form fields
   const validatedFields = SignupFormSchema.safeParse({
-    name: formData.get('name'),
-    email: formData.get('email'),
-    password: formData.get('password'),
-  })
- 
+    name: formData.get("name"),
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+
   // If any form fields are invalid, return early
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-    }
+    };
   }
- 
+
+  // 2. Prepare data for insertion into database
+  const { name, email, password } = validatedFields.data;
+  // e.g. Hash the user's password before storing it
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // 3. Insert the user into the database or call an Auth Library's API
+  try {
+    await connectDB();
+
+    const userFound = await User.findOne({ email });
+
+    if (userFound) {
+      return {
+        error: "Email already exists!",
+      };
+    }
+
+    const user = new User({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    const savedUser = await user.save();
+    console.log("User created: ", savedUser);
+  } catch (e) {
+    console.log(e);
+  }
+
+  // TODO:
+  // 4. Create user session
+  // 5. Redirect user
+
   // Call the provider or db to create a user...
 }
 
