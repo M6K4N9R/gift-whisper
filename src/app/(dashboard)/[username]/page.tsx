@@ -1,11 +1,11 @@
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/actions/auth";
+import { signup } from "@/app/actions/auth";
 import { redirect } from "next/navigation";
 
 import Link from "next/link";
 
 async function getUserData(username: string) {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(signup);
   if (!session?.user || session.user.name !== username) {
     console.log("No session.user");
     redirect("/login");
