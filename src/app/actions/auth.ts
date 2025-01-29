@@ -1,62 +1,42 @@
 'use server'
 
-import { SignupFormSchema, FormState } from "@/app/lib/definitions";
+import { SignupFormSchema } from "@/app/lib/definitions";
 import bcrypt from "bcryptjs";
 import { connectDB } from "@/app/actions/mongodb";
 import User from "@/models/User";
-import { createSession } from "../lib/session";
-import { redirect } from "next/navigation";
 
-export async function signup(state: FormState, formData: FormData) {
-  // Validate form fields
-  const validatedFields = SignupFormSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    password: formData.get("password"),
-  });
+export async function signup(credentials: Record<"email" | "password" | "name", string>) {
+  const validatedFields = SignupFormSchema.safeParse(credentials);
 
-  // If any form fields are invalid, return early
   if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-    };
+    return null; // Return null if validation fails
   }
 
-  // 2. Prepare data for insertion into database
   const { name, email, password } = validatedFields.data;
-  // e.g. Hash the user's password before storing it
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  // 3. Insert the user into the database or call an Auth Library's API
   try {
     await connectDB();
-
     const userFound = await User.findOne({ email });
-
     if (userFound) {
-      return {
-        error: "Email already exists!",
-      };
+      return null; // Return null if user already exists
     }
-
-    const user = new User({
-      name,
-      email,
-      password: hashedPassword,
-    });
-
+    
+    const user = new User({ name, email, password: hashedPassword });
     const savedUser = await user.save();
-    console.log("User created: ", savedUser);
-    await createSession(savedUser._id);
-    redirect("/[username]");
+
+    // Return user object without sensitive information
+    return {
+      id: savedUser._id.toString(),
+      name: savedUser.name,
+      email: savedUser.email
+    };
   } catch (e) {
-    console.log(e);
+    console.error(e);
+    return null; // Return null if an error occurs
   }
-
-  // 4. Create user session
-
-  // 5. Redirect user
 }
+
 
 // =============================================================== OLD CODE
 

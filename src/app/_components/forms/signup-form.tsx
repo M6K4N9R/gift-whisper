@@ -1,23 +1,56 @@
 "use client";
 
-import { signup } from "@/app/actions/auth";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { redirect } from "next/navigation";
 
 export default function SignupForm() {
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(formData: FormData) {
-    const result = await signup(formData);
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    const result = await signIn("credentials", {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+      redirect: false,
+    });
+
     if (result?.error) {
-      setError(JSON.stringify(result.error));
+      setError(result.error);
+    } else {
+      redirect("/login");
     }
   }
   return (
-    <form action={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="p-6 w-full max-w-md flex flex-col justify-between items-center gap-4 bg-dark-accent-800 text-foreground rounded-lg"
+    >
       {error && <div className="error">{error}</div>}
-      <input type="text" name="name" placeholder="Name" required />
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="password" placeholder="Password" required />
+      <input
+        type="text"
+        name="name"
+        placeholder="Name"
+        required
+        className="text-dark-accent-900"
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        className="text-dark-accent-900"
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+        className="text-dark-accent-900"
+      />
       <button type="submit">Sign Up</button>
     </form>
   );
