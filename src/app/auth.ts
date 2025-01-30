@@ -4,7 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import { User } from "@/models/User";
 import bcrypt from "bcrypt";
-import { connectDB } from "./lib/actions/mongodb";
+import { connectDB } from "./lib/mongodb";
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
