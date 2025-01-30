@@ -14,6 +14,7 @@ export const authConfig = {
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
         const username = convertName(auth.user.name) || "default";
+        
         return Response.redirect(new URL(`/dashboard/${username}`, nextUrl));
       }
       return true;

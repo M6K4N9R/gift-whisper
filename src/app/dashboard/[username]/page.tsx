@@ -12,7 +12,7 @@ export default async function UserProfilePage({
 }) {
   // Check session
   const session = await auth();
-
+  console.log("Session: ", session);
   if (!session?.user) {
     redirect("/login");
   }
@@ -21,9 +21,11 @@ export default async function UserProfilePage({
   const username = session?.user?.name
     ? convertName(session?.user.name)
     : "default";
+  console.log("Converted User Name: ", username);
   const paramsUsername = params.username || "default";
+  console.log("PArams username: ", paramsUsername);
   if (username !== paramsUsername) {
-    redirect(`dashboard/${username}`);
+    redirect(`dashboard/${username}/`);
   }
 
   //fetch userData
