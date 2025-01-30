@@ -18,6 +18,7 @@ export default function LoginForm() {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
+    console.log("FormData on loginPage: ", formData);
     const res = await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
