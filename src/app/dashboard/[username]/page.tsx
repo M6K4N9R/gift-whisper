@@ -1,54 +1,68 @@
-import { getServerSession } from "next-auth/next";
-import { signup } from "@/app/actions/auth";
+import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
+import { getUser } from "@/app/auth";
+import { convertName } from "@/app/utils/helperFunctions";
 
 import Link from "next/link";
 
-async function getUserData(username: string) {
-  const session = await getServerSession(signup);
-  if (!session?.user || session.user.name !== username) {
-    console.log("No session.user");
-    redirect("/login");
-  }
-  return session.user;
-}
-
-const UserProfile = async ({
+export default async function UserProfilePage({
   params,
 }: {
-  params: { user: Promise<string> };
-}) => {
-  const username = await params.user;
-  console.log("Username in UserProfile page: ", username);
-  const user = await getUserData(username);
+  params: { username: string };
+}) {
+  // Check session
+  const session = await auth();
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+
+  // Check user
+  const username = session?.user?.name
+    ? convertName(session?.user.name)
+    : "default";
+  const paramsUsername = params.username || "default";
+  if (username !== paramsUsername) {
+    redirect(`dashboard/${username}`);
+  }
+
+  //fetch userData
+  const user = await getUser(session.user.email);
+  if (!user) {
+    return <div>User Not Found</div>;
+  }
 
   return (
-    <section className="p-6 max-w-2xl mx-auto">
-      <div className="flex flex-col items-center">
-        <div className="relative">
-          {/* <img
-            src={user.image || "/default-profile.png"}
-            alt={`${user.name || "User"}'s profile`}
-            className="w-32 h-32 rounded-full border border-dark-accent-700"
-          /> */}
-          <button className="absolute bottom-0 right-0 bg-primary-700 text-white p-2 rounded-full">
-            Add Photo
-          </button>
-        </div>
-        <h1 className="text-3xl font-bold mt-4">{user.name || "User"}</h1>
-        <div className="mt-6 flex gap-4">
-          <Link href={`/${params.user}#archive`}>
-            <button className="bg-secondary-700 text-white px-4 py-2 rounded-lg">
-              Archive
-            </button>
-          </Link>
-          <button className="bg-primary-700 text-white px-4 py-2 rounded-lg">
-            Create List
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-};
+    <div>
+      <h1>Dashboard for {user.name}</h1>
+      <p>Email: {user.email}</p>
+      {/* Add more user information as needed */}
+    </div>
 
-export default UserProfile;
+    // <section className="p-6 max-w-2xl mx-auto">
+    //   <div className="flex flex-col items-center">
+    //     <div className="relative">
+    //       {/* <img
+    //         src={user.image || "/default-profile.png"}
+    //         alt={`${user.name || "User"}'s profile`}
+    //         className="w-32 h-32 rounded-full border border-dark-accent-700"
+    //       /> */}
+    //       <button className="absolute bottom-0 right-0 bg-primary-700 text-white p-2 rounded-full">
+    //         Add Photo
+    //       </button>
+    //     </div>
+    //     <h1 className="text-3xl font-bold mt-4">{user.name || "User"}</h1>
+    //     <div className="mt-6 flex gap-4">
+    //       <Link href={`/${params.user}#archive`}>
+    //         <button className="bg-secondary-700 text-white px-4 py-2 rounded-lg">
+    //           Archive
+    //         </button>
+    //       </Link>
+    //       <button className="bg-primary-700 text-white px-4 py-2 rounded-lg">
+    //         Create List
+    //       </button>
+    //     </div>
+    //   </div>
+    // </section>
+  );
+}
