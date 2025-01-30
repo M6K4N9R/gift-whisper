@@ -56,7 +56,11 @@ export default function LoginForm() {
           </div>
         </div>
         <input type="hidden" name="redirectTo" value={callbackUrl} />
-        <button className="mt-4 w-full" aria-disabled={isPending} type="submit">
+        <button
+          className="mt-4 w-full text-dark-accent-900"
+          aria-disabled={isPending}
+          type="submit"
+        >
           Log in
         </button>
         <div

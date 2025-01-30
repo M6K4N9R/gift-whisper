@@ -2,8 +2,8 @@ import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
-import { User } from "@/models/User";
-import bcrypt from "bcrypt";
+import User from "@/models/User";
+import bcrypt from 'bcryptjs'
 import { connectDB } from "./lib/mongodb";
 
 async function getUser(email: string): Promise<User | undefined> {
@@ -18,7 +18,8 @@ async function getUser(email: string): Promise<User | undefined> {
   }
 }
 
-export const { auth, signIn, signOut } = NextAuth({ // ============ Read about NextAuth and signIn/Out and auth functions
+export const { auth, signIn, signOut } = NextAuth({
+  // ============ Read about NextAuth and signIn/Out and auth functions
   ...authConfig,
   providers: [
     Credentials({
