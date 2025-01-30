@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { authenticate } from "@/app/lib/actions";
 import { useSearchParams } from "next/navigation";
+import Button from "../Button";
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
@@ -56,13 +57,14 @@ export default function LoginForm() {
           </div>
         </div>
         <input type="hidden" name="redirectTo" value={callbackUrl} />
-        <button
+        <Button
           className="mt-4 w-full text-dark-accent-900"
           aria-disabled={isPending}
           type="submit"
+          variant="primary"
         >
           Log in
-        </button>
+        </Button>
         <div
           className="flex h-8 items-end space-x-1"
           aria-live="polite"

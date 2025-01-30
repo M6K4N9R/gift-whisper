@@ -1,17 +1,18 @@
 import React from "react";
-import { Interface } from "readline";
 
 interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   variant?: "primary" | "secondary";
   className?: string;
+  type: "submit" | "reset" | "button";
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
   onClick,
   variant = "primary",
+  type = "submit",
   className = "",
 }) => {
   const baseStyles =
@@ -25,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   return (
-    <button
+    <button type={type}
       onClick={onClick}
       className={`${baseStyles} ${variantStyles[variant]} ${className}`}
     >

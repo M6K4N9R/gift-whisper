@@ -6,7 +6,7 @@ import User from "@/models/User";
 import bcrypt from 'bcryptjs'
 import { connectDB } from "./lib/mongodb";
 
-async function getUser(email: string): Promise<User | undefined> {
+export async function getUser(email: string): Promise<User | undefined> {
   try {
     await connectDB();
     const user = await User.findOne({ email: email }).select("+password");
