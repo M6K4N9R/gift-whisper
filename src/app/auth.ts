@@ -18,7 +18,7 @@ async function getUser(email: string): Promise<User | undefined> {
   }
 }
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { auth, signIn, signOut } = NextAuth({ // ============ Read about NextAuth and signIn/Out and auth functions
   ...authConfig,
   providers: [
     Credentials({
