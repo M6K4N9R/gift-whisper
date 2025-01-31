@@ -1,23 +1,44 @@
 "use client";
 
-"use client";
-
 import Button from "@/app/_components/Button";
 import { useActionState } from "react";
 import { authenticate } from "@/app/lib/actions";
-import { useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { redirect } from "next/navigation";
+import { convertName } from "@/app/utils/helperFunctions";
+// import { useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
-  console.log("CallbackUrl ", callbackUrl);
-  const [errorMessage, formAction, isPending] = useActionState(
-    authenticate,
-    undefined
-  );
+  // const searchParams = useSearchParams();
+  // const callbackUrl = searchParams.get("callbackUrl");
+  // console.log("CallbackUrl ", callbackUrl);
+  // const [errorMessage, formAction, isPending] = useActionState(
+  //   authenticate,
+  //   undefined
+  // );
+  const [error, setError] = useState<string | null>(null);
+  async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    const result = await signIn("credentials", {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+      redirect: false,
+    });
+    console.log("Result ", result);
+    if (result?.error) {
+      setError(result.error);
+    } else {
+      // const username = convertName(result.user?.name)
+      redirect("/signup");
+    }
+  }
 
   return (
-    <form action={formAction} className="space-y-3">
+    <form onSubmit={handleLogin} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className={`mb-3 text-2xl`}>Please log in to continue.</h1>
         <div className="w-full">
@@ -59,8 +80,8 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
-        <input type="hidden" name="redirectTo" value={callbackUrl || ""} />
-        <Button type="submit" className="mt-4 w-full" aria-disabled={isPending}>
+        {/* <input type="hidden" name="redirectTo" value={test manually setting path} /> */}
+        <Button type="submit" className="mt-4 w-full">
           Log in
         </Button>
         <div
@@ -68,9 +89,9 @@ export default function LoginForm() {
           aria-live="polite"
           aria-atomic="true"
         >
-          {errorMessage && (
+          {error && (
             <>
-              <p className="text-sm text-red-500">{errorMessage}</p>
+              <p className="text-sm text-red-500">{error}</p>
             </>
           )}
         </div>
