@@ -1,5 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
-import { convertName } from "./utils/helperFunctions";
+import { convertName } from "./src/app/utils/helperFunctions";
 
 export const authConfig = {
   pages: {

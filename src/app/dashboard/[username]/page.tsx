@@ -1,6 +1,6 @@
-import { auth } from "@/app/auth";
+import { auth } from "../../../../auth";
 import { redirect } from "next/navigation";
-import { getUser } from "@/app/auth";
+import { getUser } from "../../../../auth";
 import { convertName } from "@/app/utils/helperFunctions";
 
 import Link from "next/link";
