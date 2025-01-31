@@ -1,9 +1,7 @@
-import { auth } from "../../../../auth";
-import { redirect } from "next/navigation";
-import { getUser } from "../../../../auth";
-import { convertName } from "@/app/utils/helperFunctions";
-
+'use client'
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default async function UserProfilePage({
   params,
