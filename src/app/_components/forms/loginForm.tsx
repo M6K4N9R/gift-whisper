@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Button from "../Button";
 
 export default function LoginForm() {
   const [error, setError] = useState("");
