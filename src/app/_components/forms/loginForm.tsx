@@ -22,19 +22,12 @@ export default function LoginForm() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
-    const result = await signIn("credentials", {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-      redirect: false,
-    });
-    console.log("Result ", result);
-    if (result?.error) {
-      setError(result.error);
-    } else {
-      // const username = convertName(result.user?.name)
-      redirect("/signup");
+    console.log("FormData ", formData);
+    if (!formData) {
+      setError("Please fill all the fields");
     }
+
+    redirect("/");
   }
 
   return (
