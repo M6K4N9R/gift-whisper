@@ -1,22 +1,47 @@
 "use client";
 
-import { useActionState } from "react";
-import { authenticate } from "@/app/lib/actions";
-import { useSearchParams } from "next/navigation";
+import { signIn } from "@/app/auth";
+// import { useActionState } from "react";
+// import { authenticate } from "@/app/lib/actions";
+// import { useSearchParams } from "next/navigation";
 import Button from "../Button";
+import { useState } from "react";
 
 export default function LoginForm() {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
-  const [errorMessage, formAction, isPending] = useActionState(
-    authenticate,
-    undefined
-  );
+  const [error, setError] = useState();
+  // const searchParams = useSearchParams();
+  // const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  // const [errorMessage, formAction, isPending] = useActionState(
+  //   authenticate,
+  //   undefined
+  // );
+
+  async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    const result = await signIn("credentials", {
+      email: email as string,
+      password: password as string,
+      redirect: false,
+    });
+
+    if (result?.error) {
+      setError(result.error);
+    } else {
+      console.log("Login successful. Redirecting...");
+      alert("Login successful! You will be redirected to your dashboard.");
+    }
+  }
 
   return (
-    <form action={formAction} className="space-y-3">
+    <form onSubmit={handleLogin} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <h1 className={`mb-3 text-2xl`}>Please log in to continue.</h1>
+        <h1 className={`mb-3 text-2xl text-dark-accent-900`}>
+          Please log in to continue.
+        </h1>
         <div className="w-full">
           <div>
             <label
@@ -56,10 +81,8 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
-        <input type="hidden" name="redirectTo" value={callbackUrl} />
         <Button
           className="mt-4 w-full text-dark-accent-900"
-          aria-disabled={isPending}
           type="submit"
           variant="primary"
         >
@@ -69,13 +92,7 @@ export default function LoginForm() {
           className="flex h-8 items-end space-x-1"
           aria-live="polite"
           aria-atomic="true"
-        >
-          {errorMessage && (
-            <>
-              <p className="text-sm text-red-500">{errorMessage}</p>
-            </>
-          )}
-        </div>
+        ></div>
       </div>
     </form>
   );

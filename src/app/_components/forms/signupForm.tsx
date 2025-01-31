@@ -33,7 +33,7 @@ export default function SignupForm() {
       <input
         type="text"
         name="name"
-        placeholder="Name"
+        placeholder="Name put in"
         required
         className="text-dark-accent-900"
       />

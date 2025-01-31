@@ -29,7 +29,6 @@ export default async function UserProfilePage({
   }
 
   //fetch userData
-  const user = await getUser(session.user.email);
   if (!user) {
     return <div>User Not Found</div>;
   }

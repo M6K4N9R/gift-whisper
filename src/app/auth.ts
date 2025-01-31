@@ -2,11 +2,13 @@ import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
-import User from "@/models/User";
-import bcrypt from 'bcryptjs'
+import User, { UserDocument } from "@/models/User";
+import bcrypt from "bcryptjs";
 import { connectDB } from "./lib/mongodb";
 
-export async function getUser(email: string): Promise<User | undefined> {
+export async function getUser(
+  email: string
+): Promise<UserDocument | undefined> {
   try {
     await connectDB();
     const user = await User.findOne({ email: email }).select("+password");
