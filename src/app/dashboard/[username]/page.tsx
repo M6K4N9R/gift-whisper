@@ -1,40 +1,46 @@
-'use client'
+"use client";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default async function UserProfilePage({
-  params,
-}: {
-  params: { username: string };
-}) {
+export default function UserProfilePage() {
   // Check session
-  
-  console.log("Session: ", session);
-  if (!session?.user) {
-    redirect("/login");
-  }
 
-  // Check user
-  const username = session?.user?.name
-    ? convertName(session?.user.name)
-    : "default";
-  console.log("Converted User Name: ", username);
-  const paramsUsername = params.username || "default";
-  console.log("PArams username: ", paramsUsername);
-  if (username !== paramsUsername) {
-    redirect(`dashboard/${username}/`);
-  }
+  const { status } = useSession();
+  const router = useRouter();
 
-  //fetch userData
-  if (!user) {
-    return <div>User Not Found</div>;
-  }
+  const showSession = () => {
+    if (status === "authenticated") {
+      return (
+        <button
+          className="border border-solid border-black rounded"
+          onClick={() => {
+            signOut({ redirect: false }).then(() => {
+              router.push("/");
+            });
+          }}
+        >
+          Sign Out
+        </button>
+      );
+    } else if (status === "loading") {
+      return <span className="text-[#888] text-sm mt-7">Loading...</span>;
+    } else {
+      return (
+        <Link
+          href="/login"
+          className="border border-solid border-black rounded"
+        >
+          Sign In
+        </Link>
+      );
+    }
+  };
 
   return (
     <div>
-      <h1>Dashboard for {user.name}</h1>
-      <p>Email: {user.email}</p>
+      {showSession()}
+
       {/* Add more user information as needed */}
     </div>
 
