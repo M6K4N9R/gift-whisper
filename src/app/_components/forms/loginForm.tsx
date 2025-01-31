@@ -27,7 +27,7 @@ export default function LoginForm() {
       setError("Please fill all the fields");
     }
 
-    redirect("/");
+    redirect("/dashboard/loius-armstrong");
   }
 
   return (
