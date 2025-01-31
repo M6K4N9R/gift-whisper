@@ -10,7 +10,7 @@ import { useSearchParams } from "next/navigation";
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
-  console.log("CallbackUrLL ", callbackUrl);
+  console.log("CallbackUrl ", callbackUrl);
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined
@@ -59,7 +59,7 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
-        <input type="hidden" name="redirectTo" value={callbackUrl} />
+        <input type="hidden" name="redirectTo" value={callbackUrl || ""} />
         <Button type="submit" className="mt-4 w-full" aria-disabled={isPending}>
           Log in
         </Button>
