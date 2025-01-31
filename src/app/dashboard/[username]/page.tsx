@@ -11,7 +11,7 @@ export default async function UserProfilePage({
   params: { username: string };
 }) {
   // Check session
-  const session = await auth();
+  
   console.log("Session: ", session);
   if (!session?.user) {
     redirect("/login");
