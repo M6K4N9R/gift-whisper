@@ -1,5 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
-import { convertName } from "./src/app/utils/helperFunctions";
+// import { convertName } from "./src/app/utils/helperFunctions";
 
 export const authConfig = {
   pages: {
@@ -13,9 +13,9 @@ export const authConfig = {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
-        const username = convertName(auth.user.name) || "default";
+        // const username = convertName(auth.user.name) || "default";
 
-        return Response.redirect(new URL(`/dashboard/${username}`, nextUrl));
+        return Response.redirect(new URL(`/dashboard`, nextUrl));
       }
       return true;
     },
