@@ -4,6 +4,8 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { redirect } from "next/navigation";
 
+// touch base
+
 export default function SignupForm() {
   const [error, setError] = useState<string | null>(null);
 
