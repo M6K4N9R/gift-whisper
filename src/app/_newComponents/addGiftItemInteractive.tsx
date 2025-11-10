@@ -44,3 +44,19 @@ interface UserData {
   name: string;
   email: string;
 }
+
+const AddGiftItemInteractive = () => {
+    const router = useRouter();
+    const [isHydrated, setIsHydrated] = useState(false);
+    const [userData, setUserData] = useState<UserData | null>(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
+    // Form states
+    const [currentStep, setCurrentStep] = useState<'url' | 'extracted' | 'manual'>('url');
+    const [isExtracting, setIsExtracting] = useState(false);
+    const [extractionError, setExtractionError] = useState('');
+    const [extractedProduct, setExtractedProduct] = useState<ExtractedProduct | null>(null);
+    const [retailerLinks, setRetailerLinks] = useState<RetailerLink[]>([]);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+  
