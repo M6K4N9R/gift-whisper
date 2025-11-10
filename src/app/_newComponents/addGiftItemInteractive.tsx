@@ -60,3 +60,42 @@ const AddGiftItemInteractive = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
   
+    
+  // Mock data
+  const mockWishlists = [
+    { id: '1', name: 'Birthday Wishlist 2024' },
+    { id: '2', name: 'Holiday Gifts' },
+    { id: '3', name: 'Wedding Registry' },
+    { id: '4', name: 'Everyday Wants' }];
+  
+  
+    const mockExtractedProducts: Record<string, ExtractedProduct> = {
+      'amazon.com': {
+        title: 'Apple AirPods Pro (2nd Generation)',
+        description: 'Active Noise Cancellation, Transparency mode, Spatial audio, and up to 6 hours of listening time with ANC enabled. The MagSafe Charging Case delivers more than 24 hours of battery life.',
+        price: '$249.99',
+        image: "https://images.unsplash.com/photo-1631677624302-55e6178078f1",
+        alt: 'White Apple AirPods Pro earbuds in open charging case on white background',
+        retailer: 'Amazon',
+        availability: 'in-stock'
+      },
+      'target.com': {
+        title: 'Nintendo Switch OLED Model Console',
+        description: 'Get the gaming system that lets you play the games you want, wherever you are, however you like. Includes the Nintendo Switch console and Nintendo Switch dock in white.',
+        price: '$349.99',
+        image: "https://images.unsplash.com/photo-1613750629907-e8f64ea16396",
+        alt: 'Nintendo Switch gaming console with colorful Joy-Con controllers on gaming setup',
+        retailer: 'Target',
+        availability: 'limited'
+      },
+      'bestbuy.com': {
+        title: 'Sony WH-1000XM4 Wireless Headphones',
+        description: 'Industry-leading noise canceling with Dual Noise Sensor technology. Up to 30-hour battery life with quick charge. Touch Sensor controls to pause play skip tracks.',
+        price: '$279.99',
+        image: "https://images.unsplash.com/photo-1584433202630-5dc24e240130",
+        alt: 'Black Sony over-ear wireless headphones on modern desk setup',
+        retailer: 'Best Buy',
+        availability: 'in-stock'
+      }
+    };
+    
