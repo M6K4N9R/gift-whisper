@@ -216,3 +216,97 @@ const AddGiftItemInteractive = () => {
         }, 1000);
       };
     
+      const handleFormSubmit = async (formData: ProductFormData) => {
+        setIsSubmitting(true);
+    
+        try {
+          // Simulate API call
+          await new Promise((resolve) => setTimeout(resolve, 1500));
+    
+          setShowSuccess(true);
+    
+          // Reset form after success
+          setTimeout(() => {
+            setShowSuccess(false);
+            setCurrentStep('url');
+            setExtractedProduct(null);
+            setRetailerLinks([]);
+          }, 3000);
+    
+        } catch (error) {
+          console.error('Error adding gift item:', error);
+        } finally {
+          setIsSubmitting(false);
+        }
+      };
+    
+      const handleCancel = () => {
+        setCurrentStep('url');
+        setExtractedProduct(null);
+        setRetailerLinks([]);
+        setExtractionError('');
+      };
+    
+      const handleSkipToManual = () => {
+        setCurrentStep('manual');
+        setExtractedProduct(null);
+        setRetailerLinks([]);
+      };
+    
+      if (!isHydrated) {
+        return (
+          <div className="min-h-screen bg-background">
+            <div className="animate-pulse">
+              <div className="h-16 bg-muted"></div>
+              <div className="max-w-4xl mx-auto px-4 py-8">
+                <div className="h-8 bg-muted rounded mb-4"></div>
+                <div className="h-64 bg-muted rounded"></div>
+              </div>
+            </div>
+          </div>);
+    
+      }
+    
+      if (showSuccess) {
+        return (
+          <div className="min-h-screen bg-background">
+            <Header
+              isAuthenticated={isAuthenticated}
+              onLogout={handleLogout}
+              userName={userData?.name} />
+    
+            
+            <main className="pt-16 min-h-screen">
+              <div className="max-w-2xl mx-auto px-4 py-16">
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Icon name="CheckCircleIcon" size={40} className="text-success" />
+                  </div>
+                  <h1 className="text-3xl font-bold text-text-primary mb-4">
+                    Gift Item Added Successfully!
+                  </h1>
+                  <p className="text-text-secondary mb-8">
+                    Your gift item has been added to your wishlist and is now available for sharing.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <ActionButton
+                      onClick={() => router.push('/user-dashboard')}
+                      icon="HomeIcon">
+    
+                      Go to Dashboard
+                    </ActionButton>
+                    <ActionButton
+                      onClick={() => setShowSuccess(false)}
+                      variant="outline"
+                      icon="PlusIcon">
+    
+                      Add Another Item
+                    </ActionButton>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>);
+    
+      }
+    
