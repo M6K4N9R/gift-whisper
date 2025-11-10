@@ -310,3 +310,129 @@ const AddGiftItemInteractive = () => {
     
       }
     
+      
+  return (
+    <div className="min-h-screen bg-background">
+      <Header
+        isAuthenticated={isAuthenticated}
+        onLogout={handleLogout}
+        userName={userData?.name} />
+
+      
+      <main className="pt-16 min-h-screen">
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          {/* Header */}
+          <div className="mb-8">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                <Icon name="GiftIcon" size={24} className="text-primary" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-text-primary">Add Gift Item</h1>
+                <p className="text-text-secondary">Add a new item to your wishlist with automatic information extraction</p>
+              </div>
+            </div>
+            
+            {/* Progress Steps */}
+            <div className="flex items-center space-x-4">
+              <div className={`flex items-center space-x-2 ${currentStep === 'url' ? 'text-primary' : 'text-text-secondary'}`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                currentStep === 'url' ? 'bg-primary text-primary-foreground' : 'bg-muted text-text-secondary'}`
+                }>
+                  1
+                </div>
+                <span className="text-sm font-medium">Product URL</span>
+              </div>
+              <div className="w-8 h-px bg-border"></div>
+              <div className={`flex items-center space-x-2 ${currentStep === 'extracted' ? 'text-primary' : 'text-text-secondary'}`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                currentStep === 'extracted' ? 'bg-primary text-primary-foreground' : 'bg-muted text-text-secondary'}`
+                }>
+                  2
+                </div>
+                <span className="text-sm font-medium">Review & Edit</span>
+              </div>
+              <div className="w-8 h-px bg-border"></div>
+              <div className={`flex items-center space-x-2 ${currentStep === 'manual' ? 'text-primary' : 'text-text-secondary'}`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                currentStep === 'manual' ? 'bg-primary text-primary-foreground' : 'bg-muted text-text-secondary'}`
+                }>
+                  3
+                </div>
+                <span className="text-sm font-medium">Final Details</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="space-y-6">
+            {currentStep === 'url' &&
+            <>
+                <ProductUrlInput
+                onUrlSubmit={handleUrlSubmit}
+                isLoading={isExtracting}
+                error={extractionError} />
+
+                
+                <div className="text-center">
+                  <p className="text-text-secondary mb-4">Or skip automatic extraction</p>
+                  <ActionButton
+                  onClick={handleSkipToManual}
+                  variant="outline"
+                  icon="PencilIcon">
+
+                    Enter Details Manually
+                  </ActionButton>
+                </div>
+              </>
+            }
+
+            {currentStep === 'extracted' && extractedProduct &&
+            <>
+                <ExtractedProductInfo
+                product={extractedProduct}
+                isVisible={true} />
+
+                
+                <MultipleRetailerLinks
+                links={retailerLinks}
+                onAddLink={handleAddRetailerLink}
+                onRemoveLink={handleRemoveRetailerLink}
+                onValidateLink={handleValidateLink}
+                isLoading={false} />
+
+                
+                <div className="flex justify-center">
+                  <ActionButton
+                  onClick={() => setCurrentStep('manual')}
+                  icon="ArrowRightIcon"
+                  size="lg">
+
+                    Continue to Final Details
+                  </ActionButton>
+                </div>
+              </>
+            }
+
+            {currentStep === 'manual' &&
+            <ManualProductForm
+              initialData={extractedProduct ? {
+                title: extractedProduct.title,
+                description: extractedProduct.description,
+                price: extractedProduct.price,
+                wishlistId: mockWishlists[0].id
+              } : undefined}
+              onSubmit={handleFormSubmit}
+              onCancel={handleCancel}
+              isSubmitting={isSubmitting}
+              availableWishlists={mockWishlists} />
+
+            }
+          </div>
+        </div>
+      </main>
+    </div>);
+
+};
+
+export default AddGiftItemInteractive;
