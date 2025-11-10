@@ -98,4 +98,73 @@ const AddGiftItemInteractive = () => {
         availability: 'in-stock'
       }
     };
+    useEffect(() => {
+        setIsHydrated(true);
+    
+        const token = localStorage.getItem('authToken');
+        const userDataStr = localStorage.getItem('userData');
+    
+        if (token && userDataStr) {
+          try {
+            const user = JSON.parse(userDataStr);
+            setUserData(user);
+            setIsAuthenticated(true);
+          } catch (error) {
+            console.error('Error parsing user data:', error);
+            setIsAuthenticated(false);
+          }
+        } else {
+          setIsAuthenticated(false);
+        }
+      }, []);
+    
+      const handleLogout = () => {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userData');
+        setIsAuthenticated(false);
+        setUserData(null);
+        router.push('/user-login');
+      };
+    
+      const handleUrlSubmit = async (url: string) => {
+        setIsExtracting(true);
+        setExtractionError('');
+    
+        try {
+          // Simulate API call delay
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+    
+          // Mock extraction based on URL
+          const domain = new URL(url).hostname.toLowerCase();
+          let product = null;
+    
+          for (const [key, mockProduct] of Object.entries(mockExtractedProducts)) {
+            if (domain.includes(key)) {
+              product = mockProduct;
+              break;
+            }
+          }
+    
+          if (product) {
+            setExtractedProduct(product);
+            setCurrentStep('extracted');
+    
+            // Add initial retailer link
+            const newLink: RetailerLink = {
+              id: Date.now().toString(),
+              url,
+              retailer: product.retailer,
+              price: product.price,
+              status: 'valid'
+            };
+            setRetailerLinks([newLink]);
+          } else {
+            throw new Error('Unable to extract product information from this URL');
+          }
+        } catch (error) {
+          setExtractionError(error instanceof Error ? error.message : 'Failed to extract product information');
+        } finally {
+          setIsExtracting(false);
+        }
+      };
     
