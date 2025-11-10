@@ -168,3 +168,51 @@ const AddGiftItemInteractive = () => {
         }
       };
     
+      const handleAddRetailerLink = async (url: string) => {
+        const newLink: RetailerLink = {
+          id: Date.now().toString(),
+          url,
+          retailer: 'Unknown Retailer',
+          price: '',
+          status: 'checking'
+        };
+    
+        setRetailerLinks((prev) => [...prev, newLink]);
+    
+        // Simulate validation
+        setTimeout(() => {
+          setRetailerLinks((prev) => prev.map((link) =>
+          link.id === newLink.id ?
+          {
+            ...link,
+            retailer: 'eBay',
+            price: '$' + (Math.random() * 100 + 50).toFixed(2),
+            status: Math.random() > 0.2 ? 'valid' : 'invalid' as const
+          } :
+          link
+          ));
+        }, 1500);
+      };
+    
+      const handleRemoveRetailerLink = (id: string) => {
+        setRetailerLinks((prev) => prev.filter((link) => link.id !== id));
+      };
+    
+      const handleValidateLink = async (id: string) => {
+        setRetailerLinks((prev) => prev.map((link) =>
+        link.id === id ? { ...link, status: 'checking' as const } : link
+        ));
+    
+        setTimeout(() => {
+          setRetailerLinks((prev) => prev.map((link) =>
+          link.id === id ?
+          {
+            ...link,
+            status: Math.random() > 0.5 ? 'valid' : 'invalid' as const,
+            price: Math.random() > 0.5 ? '$' + (Math.random() * 100 + 50).toFixed(2) : ''
+          } :
+          link
+          ));
+        }, 1000);
+      };
+    
