@@ -93,4 +93,27 @@ const ManualProductForm = ({
         setErrors(prev => ({ ...prev, [field]: undefined }));
       }
     };
-  
+    const addTag = () => {
+        if (newTag.trim() && !formData.tags.includes(newTag.trim())) {
+          setFormData(prev => ({
+            ...prev,
+            tags: [...prev.tags, newTag.trim()]
+          }));
+          setNewTag('');
+        }
+      };
+    
+      const removeTag = (tagToRemove: string) => {
+        setFormData(prev => ({
+          ...prev,
+          tags: prev.tags.filter(tag => tag !== tagToRemove)
+        }));
+      };
+    
+      const handleKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          addTag();
+        }
+      };
+    
