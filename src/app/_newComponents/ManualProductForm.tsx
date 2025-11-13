@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import Icon from '@/components/ui/AppIcon';
-import ActionButton from '@/components/common/ActionButton';
+import Icon from '@/app/ui/commonComponents/AppIcon';
+import ActionButton from '@/app/ui/commonComponents/ActionButton';
 
 interface ProductFormData {
   title: string;
