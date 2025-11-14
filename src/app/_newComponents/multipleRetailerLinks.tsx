@@ -68,3 +68,29 @@ const MultipleRetailerLinks = ({
       setUrlError('');
     }
   };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'valid':
+        return <Icon name="CheckCircleIcon" size={16} className="text-success" />;
+      case 'invalid':
+        return <Icon name="XCircleIcon" size={16} className="text-error" />;
+      case 'checking':
+        return <Icon name="ArrowPathIcon" size={16} className="text-warning animate-spin" />;
+      default:
+        return <Icon name="ClockIcon" size={16} className="text-text-secondary" />;
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'valid':
+        return 'Valid';
+      case 'invalid':
+        return 'Invalid';
+      case 'checking':
+        return 'Checking...';
+      default:
+        return 'Pending';
+    }
+  };
