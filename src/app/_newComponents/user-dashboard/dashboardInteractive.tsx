@@ -108,3 +108,86 @@ const DashboardInteractive = () => {
   }];
 
 
+  const mockActivities: ActivityItem[] = [
+  {
+    id: '1',
+    type: 'item_added',
+    title: 'Added new item',
+    description: 'Added "Wireless Headphones" to your wishlist',
+    timestamp: '2024-11-07T13:30:00Z',
+    wishlistName: 'Tech Gadgets 2024'
+  },
+  {
+    id: '2',
+    type: 'shared',
+    title: 'Wishlist shared',
+    description: 'Shared "Birthday Wishlist 2024" with 3 friends',
+    timestamp: '2024-11-06T18:45:00Z',
+    wishlistName: 'Birthday Wishlist 2024'
+  },
+  {
+    id: '3',
+    type: 'updated',
+    title: 'Wishlist updated',
+    description: 'Updated privacy settings and description',
+    timestamp: '2024-11-05T10:30:00Z',
+    wishlistName: 'Holiday Gift Ideas'
+  },
+  {
+    id: '4',
+    type: 'created',
+    title: 'New wishlist created',
+    description: 'Created "Home Improvement" wishlist',
+    timestamp: '2024-11-04T14:20:00Z',
+    wishlistName: 'Home Improvement'
+  }];
+
+
+  const mockSharedWishlists: SharedWishlist[] = [
+  {
+    id: 'shared-1',
+    title: 'Sarah\'s Baby Shower Registry',
+    ownerName: 'Sarah Johnson',
+    ownerAvatar: "https://images.unsplash.com/photo-1592156087984-c4cc5cd447a5",
+    itemCount: 18,
+    sharedDate: '2024-11-06T12:00:00Z',
+    previewItems: [
+    {
+      id: 'item-1',
+      name: 'Baby Stroller',
+      image: 'https://images.pixabay.com/photo/2017/07/23/10/44/baby-2531069_1280.jpg'
+    },
+    {
+      id: 'item-2',
+      name: 'Crib Mobile',
+      image: 'https://images.pexels.com/photos/1648377/pexels-photo-1648377.jpeg'
+    },
+    {
+      id: 'item-3',
+      name: 'Baby Clothes',
+      image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af'
+    }]
+
+  },
+  {
+    id: 'shared-2',
+    title: 'Mike\'s Graduation Gifts',
+    ownerName: 'Mike Chen',
+    ownerAvatar: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg',
+    itemCount: 7,
+    sharedDate: '2024-11-04T15:30:00Z',
+    previewItems: [
+    {
+      id: 'item-4',
+      name: 'Professional Briefcase',
+      image: 'https://images.pixabay.com/photo/2014/07/06/13/55/business-385506_1280.jpg'
+    },
+    {
+      id: 'item-5',
+      name: 'Watch',
+      image: 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg'
+    }]
+
+  }];
+
+
