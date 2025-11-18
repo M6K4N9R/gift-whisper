@@ -191,3 +191,67 @@ const DashboardInteractive = () => {
   }];
 
 
+  const stats = {
+    totalWishlists: mockWishlists.length,
+    totalItems: mockWishlists.reduce((sum, wishlist) => sum + wishlist.itemCount, 0),
+    sharedWishlists: mockSharedWishlists.length,
+    publicWishlists: mockWishlists.filter((w) => !w.isPrivate).length
+  };
+
+  useEffect(() => {
+    setIsHydrated(true);
+
+    // Simulate loading
+    const timer = setTimeout(() => {
+      setWishlists(mockWishlists);
+      setFilteredWishlists(mockWishlists);
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated) return;
+
+    let filtered = [...wishlists];
+
+    // Apply search filter
+    if (searchQuery) {
+      filtered = filtered.filter((wishlist) =>
+      wishlist.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      wishlist.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      wishlist.category.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Apply privacy filter
+    if (filterBy === 'private') {
+      filtered = filtered.filter((wishlist) => wishlist.isPrivate);
+    } else if (filterBy === 'public') {
+      filtered = filtered.filter((wishlist) => !wishlist.isPrivate);
+    }
+
+    // Apply sorting
+    filtered.sort((a, b) => {
+      switch (sortBy) {
+        case 'updated':
+          return new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime();
+        case 'created':
+          return new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime();
+        case 'name':
+          return a.title.localeCompare(b.title);
+        case 'items':
+          return b.itemCount - a.itemCount;
+        default:
+          return 0;
+      }
+    });
+
+    setFilteredWishlists(filtered);
+  }, [searchQuery, sortBy, filterBy, wishlists, isHydrated]);
+
+  const handleCreateWishlist = () => {
+    router.push('/wishlist-creation');
+  };
+
