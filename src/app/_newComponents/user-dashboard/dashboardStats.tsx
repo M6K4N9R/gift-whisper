@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '@/components/ui/AppIcon';
+import Icon from '@/app/ui/commonComponents/AppIcon';
 
 interface DashboardStatsProps {
   stats: {

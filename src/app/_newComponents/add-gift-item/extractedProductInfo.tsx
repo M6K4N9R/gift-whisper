@@ -1,6 +1,6 @@
 import React from "react";
 import AppImage from "@/app/ui/commonComponents/AppImage";
-import Icon from "@/app/ui/commonComponents//AppIcon";
+import Icon from "@/app/ui/commonComponents/AppIcon";
 
 interface ExtractedProduct {
   title: string;
