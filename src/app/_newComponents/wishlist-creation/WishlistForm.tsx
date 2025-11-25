@@ -323,3 +323,99 @@ const WishlistForm = ({ onSubmit, isLoading }: WishlistFormProps) => {
           ))}
         </div>
       </div>
+      
+      {/* Privacy Settings */}
+      <div className="bg-surface rounded-lg border border-border p-6">
+        <h2 className="text-lg font-semibold text-text-primary mb-6 flex items-center">
+          <Icon name="LockClosedIcon" size={20} className="mr-2 text-primary" />
+          Privacy Settings
+        </h2>
+
+        <div className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-4">
+            <label
+              className={`flex flex-col p-4 border rounded-lg cursor-pointer transition-all hover:border-primary ${
+                formData.privacy === 'private' ?'border-primary bg-primary/5' :'border-border'
+              }`}
+            >
+              <div className="flex items-center mb-2">
+                <input
+                  type="radio"
+                  name="privacy"
+                  value="private"
+                  checked={formData.privacy === 'private'}
+                  onChange={(e) => handleInputChange('privacy', e.target.value as 'public' | 'private')}
+                  className="sr-only"
+                />
+                <Icon name="LockClosedIcon" size={20} className="mr-2 text-text-primary" />
+                <span className="font-medium text-text-primary">Private</span>
+              </div>
+              <p className="text-sm text-text-secondary">
+                Only people with the link can view this wishlist
+              </p>
+            </label>
+
+            <label
+              className={`flex flex-col p-4 border rounded-lg cursor-pointer transition-all hover:border-primary ${
+                formData.privacy === 'public' ?'border-primary bg-primary/5' :'border-border'
+              }`}
+            >
+              <div className="flex items-center mb-2">
+                <input
+                  type="radio"
+                  name="privacy"
+                  value="public"
+                  checked={formData.privacy === 'public'}
+                  onChange={(e) => handleInputChange('privacy', e.target.value as 'public' | 'private')}
+                  className="sr-only"
+                />
+                <Icon name="GlobeAltIcon" size={20} className="mr-2 text-text-primary" />
+                <span className="font-medium text-text-primary">Public</span>
+              </div>
+              <p className="text-sm text-text-secondary">
+                Anyone can discover and view this wishlist
+              </p>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      {/* Advanced Settings */}
+      <div className="bg-surface rounded-lg border border-border p-6">
+        <button
+          type="button"
+          onClick={() => setShowAdvanced(!showAdvanced)}
+          className="w-full flex items-center justify-between text-lg font-semibold text-text-primary mb-6 hover:text-primary transition-colors"
+        >
+          <div className="flex items-center">
+            <Icon name="Cog6ToothIcon" size={20} className="mr-2 text-primary" />
+            Advanced Settings
+          </div>
+          <Icon
+            name={showAdvanced ? 'ChevronUpIcon' : 'ChevronDownIcon'}
+            size={20}
+            className="text-text-secondary"
+          />
+        </button>
+
+        {showAdvanced && (
+          <div className="space-y-6">
+            {/* Currency */}
+            <div>
+              <label htmlFor="currency" className="block text-sm font-medium text-text-primary mb-2">
+                Currency for Price Tracking
+              </label>
+              <select
+                id="currency"
+                value={formData.currency}
+                onChange={(e) => handleInputChange('currency', e.target.value)}
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+              >
+                {currencies.map((currency) => (
+                  <option key={currency.value} value={currency.value}>
+                    {currency.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
