@@ -130,3 +130,99 @@ const WishlistForm = ({ onSubmit, isLoading }: WishlistFormProps) => {
       onSubmit(formData);
     }
   };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Basic Information */}
+      <div className="bg-surface rounded-lg border border-border p-6">
+        <h2 className="text-lg font-semibold text-text-primary mb-6 flex items-center">
+          <Icon name="InformationCircleIcon" size={20} className="mr-2 text-primary" />
+          Basic Information
+        </h2>
+
+        <div className="space-y-6">
+          {/* Title */}
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium text-text-primary mb-2">
+              Wishlist Title *
+            </label>
+            <input
+              type="text"
+              id="title"
+              value={formData.title}
+              onChange={(e) => handleInputChange('title', e.target.value)}
+              placeholder="e.g., Sarah's Birthday Wishlist"
+              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors ${
+                errors.title ? 'border-error' : 'border-border'
+              }`}
+            />
+            {errors.title && (
+              <p className="mt-1 text-sm text-error flex items-center">
+                <Icon name="ExclamationCircleIcon" size={16} className="mr-1" />
+                {errors.title}
+              </p>
+            )}
+          </div>
+
+          {/* Description */}
+          <div>
+            <label htmlFor="description" className="block text-sm font-medium text-text-primary mb-2">
+              Description
+            </label>
+            <textarea
+              id="description"
+              value={formData.description}
+              onChange={(e) => handleInputChange('description', e.target.value)}
+              placeholder="Tell others what this wishlist is for..."
+              rows={4}
+              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors resize-none ${
+                errors.description ? 'border-error' : 'border-border'
+              }`}
+            />
+            <div className="mt-1 flex justify-between items-center">
+              {errors.description ? (
+                <p className="text-sm text-error flex items-center">
+                  <Icon name="ExclamationCircleIcon" size={16} className="mr-1" />
+                  {errors.description}
+                </p>
+              ) : (
+                <span className="text-sm text-text-secondary">
+                  Optional - Help others understand your wishlist
+                </span>
+              )}
+              <span className="text-sm text-text-secondary">
+                {formData.description.length}/500
+              </span>
+            </div>
+          </div>
+
+          {/* Category */}
+          <div>
+            <label className="block text-sm font-medium text-text-primary mb-3">
+              Category *
+            </label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {categories.map((category) => (
+                <button
+                  key={category.value}
+                  type="button"
+                  onClick={() => handleInputChange('category', category.value)}
+                  className={`p-4 border rounded-lg text-center transition-all hover:border-primary ${
+                    formData.category === category.value
+                      ? 'border-primary bg-primary/5 text-primary' :'border-border text-text-secondary hover:text-text-primary'
+                  }`}
+                >
+                  <Icon name={category.icon as any} size={24} className="mx-auto mb-2" />
+                  <span className="text-sm font-medium">{category.label}</span>
+                </button>
+              ))}
+            </div>
+            {errors.category && (
+              <p className="mt-2 text-sm text-error flex items-center">
+                <Icon name="ExclamationCircleIcon" size={16} className="mr-1" />
+                {errors.category}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
