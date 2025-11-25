@@ -86,3 +86,47 @@ const WishlistForm = ({ onSubmit, isLoading }: WishlistFormProps) => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
+  const handleInputChange = (field: keyof WishlistFormData, value: any) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: '' }));
+    }
+  };
+
+  const handleImageUpload = (file: File) => {
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        handleInputChange('coverImage', e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setDragActive(true);
+    } else if (e.type === 'dragleave') {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleImageUpload(e.dataTransfer.files[0]);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validateForm()) {
+      onSubmit(formData);
+    }
+  };
