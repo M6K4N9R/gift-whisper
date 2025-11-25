@@ -48,3 +48,41 @@ const WishlistForm = ({ onSubmit, isLoading }: WishlistFormProps) => {
     { value: 'anniversary', label: 'Anniversary', icon: 'CalendarDaysIcon' },
     { value: 'general', label: 'General', icon: 'ListBulletIcon' },
   ];
+
+  const templates = [
+    { value: '', label: 'Start from scratch' },
+    { value: 'birthday-essentials', label: 'Birthday Essentials' },
+    { value: 'wedding-registry', label: 'Wedding Registry' },
+    { value: 'holiday-wishes', label: 'Holiday Wishes' },
+    { value: 'tech-gadgets', label: 'Tech & Gadgets' },
+    { value: 'home-decor', label: 'Home & Decor' },
+  ];
+
+  const currencies = [
+    { value: 'USD', label: 'US Dollar ($)' },
+    { value: 'EUR', label: 'Euro (€)' },
+    { value: 'GBP', label: 'British Pound (£)' },
+    { value: 'CAD', label: 'Canadian Dollar (C$)' },
+    { value: 'AUD', label: 'Australian Dollar (A$)' },
+  ];
+
+  const validateForm = (): boolean => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.title.trim()) {
+      newErrors.title = 'Wishlist title is required';
+    } else if (formData.title.length < 3) {
+      newErrors.title = 'Title must be at least 3 characters long';
+    }
+
+    if (!formData.category) {
+      newErrors.category = 'Please select a category';
+    }
+
+    if (formData.description.length > 500) {
+      newErrors.description = 'Description must be less than 500 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
