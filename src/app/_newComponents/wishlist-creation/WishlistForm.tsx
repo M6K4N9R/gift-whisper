@@ -226,3 +226,100 @@ const WishlistForm = ({ onSubmit, isLoading }: WishlistFormProps) => {
           </div>
         </div>
       </div>
+
+      {/* Cover Image */}
+      <div className="bg-surface rounded-lg border border-border p-6">
+        <h2 className="text-lg font-semibold text-text-primary mb-6 flex items-center">
+          <Icon name="PhotoIcon" size={20} className="mr-2 text-primary" />
+          Cover Image
+        </h2>
+
+        <div className="space-y-4">
+          {formData.coverImage ? (
+            <div className="relative">
+              <AppImage
+                src={formData.coverImage}
+                alt="Wishlist cover image preview showing uploaded photo"
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <button
+                type="button"
+                onClick={() => handleInputChange('coverImage', null)}
+                className="absolute top-2 right-2 p-2 bg-error text-error-foreground rounded-full hover:bg-error/90 transition-colors"
+              >
+                <Icon name="XMarkIcon" size={16} />
+              </button>
+            </div>
+          ) : (
+            <div
+              onDragEnter={handleDrag}
+              onDragLeave={handleDrag}
+              onDragOver={handleDrag}
+              onDrop={handleDrop}
+              className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                dragActive ? 'border-primary bg-primary/5' : 'border-border'
+              }`}
+            >
+              <Icon name="CloudArrowUpIcon" size={48} className="mx-auto mb-4 text-text-secondary" />
+              <p className="text-text-primary font-medium mb-2">
+                Drag and drop an image here, or click to browse
+              </p>
+              <p className="text-sm text-text-secondary mb-4">
+                PNG, JPG, GIF up to 10MB
+              </p>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => e.target.files?.[0] && handleImageUpload(e.target.files[0])}
+                className="hidden"
+                id="cover-image"
+              />
+              <label
+                htmlFor="cover-image"
+                className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors cursor-pointer"
+              >
+                <Icon name="PhotoIcon" size={16} className="mr-2" />
+                Choose Image
+              </label>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Template Selection */}
+      <div className="bg-surface rounded-lg border border-border p-6">
+        <h2 className="text-lg font-semibold text-text-primary mb-6 flex items-center">
+          <Icon name="DocumentDuplicateIcon" size={20} className="mr-2 text-primary" />
+          Template Selection
+        </h2>
+
+        <div className="space-y-3">
+          {templates.map((template) => (
+            <label
+              key={template.value}
+              className={`flex items-center p-4 border rounded-lg cursor-pointer transition-all hover:border-primary ${
+                formData.template === template.value
+                  ? 'border-primary bg-primary/5' :'border-border'
+              }`}
+            >
+              <input
+                type="radio"
+                name="template"
+                value={template.value}
+                checked={formData.template === template.value}
+                onChange={(e) => handleInputChange('template', e.target.value)}
+                className="sr-only"
+              />
+              <div className={`w-4 h-4 rounded-full border-2 mr-3 flex items-center justify-center ${
+                formData.template === template.value
+                  ? 'border-primary' :'border-border'
+              }`}>
+                {formData.template === template.value && (
+                  <div className="w-2 h-2 bg-primary rounded-full" />
+                )}
+              </div>
+              <span className="font-medium text-text-primary">{template.label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
