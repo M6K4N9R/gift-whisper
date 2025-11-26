@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import WishlistForm from "./WishlistForm";
 import CreationSuccess from "./CreationSuccess";
-import Header from "@/components/common/Header";
-import AuthenticationGuard from "@/components/common/AuthenticationGuard";
+import Header from "@/app/ui/commonComponents/Header";
+import AuthenticationGuard from "@/app/ui/commonComponents/AuthenticationGuard";
 
 interface WishlistFormData {
   title: string;
