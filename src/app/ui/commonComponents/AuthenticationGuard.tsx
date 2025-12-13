@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-
+import React, { useEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import LoadingIndicator from "./LoadingIndicator";
 
 interface AuthenticationGuardProps {
   children: React.ReactNode;
@@ -10,10 +10,10 @@ interface AuthenticationGuardProps {
   redirectTo?: string;
 }
 
-const AuthenticationGuard = ({ 
-  children, 
-  requireAuth = true, 
-  redirectTo = '/user-login' 
+const AuthenticationGuard = ({
+  children,
+  requireAuth = true,
+  redirectTo = "/user-login",
 }: AuthenticationGuardProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,35 +23,37 @@ const AuthenticationGuard = ({
   useEffect(() => {
     const checkAuthentication = () => {
       try {
-        const token = localStorage.getItem('authToken');
-        const user = localStorage.getItem('userData');
-        
+        const token = localStorage.getItem("authToken");
+        const user = localStorage.getItem("userData");
+
         const authenticated = !!(token && user);
         setIsAuthenticated(authenticated);
 
         if (requireAuth && !authenticated && pathname !== redirectTo) {
-          localStorage.setItem('intendedDestination', pathname);
+          localStorage.setItem("intendedDestination", pathname);
           router.push(redirectTo);
           return;
         }
 
-        if (!requireAuth && authenticated && pathname === '/user-login') {
-          const intendedDestination = localStorage.getItem('intendedDestination');
+        if (!requireAuth && authenticated && pathname === "/user-login") {
+          const intendedDestination = localStorage.getItem(
+            "intendedDestination"
+          );
           if (intendedDestination) {
-            localStorage.removeItem('intendedDestination');
+            localStorage.removeItem("intendedDestination");
             router.push(intendedDestination);
           } else {
-            router.push('/user-dashboard');
+            router.push("/user-dashboard");
           }
           return;
         }
 
         setIsLoading(false);
       } catch (error) {
-        console.error('Authentication check failed:', error);
+        console.error("Authentication check failed:", error);
         setIsAuthenticated(false);
         setIsLoading(false);
-        
+
         if (requireAuth) {
           router.push(redirectTo);
         }
@@ -63,18 +65,18 @@ const AuthenticationGuard = ({
 
   const handleAuthStateChange = (authenticated: boolean) => {
     setIsAuthenticated(authenticated);
-    
+
     if (authenticated) {
-      const intendedDestination = localStorage.getItem('intendedDestination');
+      const intendedDestination = localStorage.getItem("intendedDestination");
       if (intendedDestination) {
-        localStorage.removeItem('intendedDestination');
+        localStorage.removeItem("intendedDestination");
         router.push(intendedDestination);
       } else {
-        router.push('/user-dashboard');
+        router.push("/user-dashboard");
       }
     } else {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('userData');
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("userData");
       router.push(redirectTo);
     }
   };
@@ -82,10 +84,7 @@ const AuthenticationGuard = ({
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <LoadingIndicator 
-          message="Checking authentication..." 
-          size="large" 
-        />
+        <LoadingIndicator message="Checking authentication..." size="large" />
       </div>
     );
   }
